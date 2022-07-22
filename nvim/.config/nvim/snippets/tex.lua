@@ -74,11 +74,13 @@ end --}}}
 
 local template = s("template", 
     fmt([[ 
+        
         \documentclass[a4paper, 12pt]{{article}}
         \usepackage[utf8]{{inputenc}}
         \usepackage[margin=1in]{{geometry}}
         \usepackage{{indentfirst}}
-        \usepackage{{amsmath, amsfonts, amssymb}}
+        \usepackage{{amsthm, amsmath, amsfonts, amssymb, thmtools, mathtools}}
+        \usepackage{{shadethm}}
         \usepackage{{float}}
         \usepackage{{graphicx}}
         \usepackage{{fancyhdr}}
@@ -86,6 +88,15 @@ local template = s("template",
         \usepackage{{algorithmic}}
         \usepackage{{ebproof}}
         \usepackage{{hyperref}}
+        \usepackage{{etoolbox}}
+        
+        \AtBeginEnvironment{{align}}{{\setcounter{{equation}}{{0}}}}
+        \newcommand{{\floor}}[1]{{\lfloor #1 \rfloor}}
+        
+        \newtheorem{{definition}}{{Definição}}[section]
+        \newtheorem{{theorem}}{{Teorema}}[section]
+        \newtheorem{{colorario}}{{Colorário}}[section]
+        \newtheorem{{lemma}}[theorem]{{Lema}}
         
         \hypersetup{{
             colorlinks=true,
@@ -97,7 +108,7 @@ local template = s("template",
         
         \pagestyle{{fancy}}
         \fancyhead[L]{{Trabalho X}}
-        \fancyhead[R]{{Paulo Roberto Pinto Costa - 496791}}
+        \fancyhead[R]{{Paulo Roberto}}
         \fancyfoot[C]{{\thepage}}
         \setlength{{\headheight}}{{14.5pt}}
         
