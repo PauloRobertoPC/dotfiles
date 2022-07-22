@@ -1,5 +1,5 @@
 sudo pacman -Syyu
-sudo pacman -S wget git base-devel python-pip jdk-openjdk go ruby perl npm yarn ripgrep fd xsel bat zip unzip
+sudo pacman -S wget git github-cli base-devel python-pip jdk-openjdk go ruby perl npm yarn ripgrep fd xsel bat zip unzip
 sudo pacman -S stow gvim kitty tmux zsh zsh-completions
 zsh
 sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
