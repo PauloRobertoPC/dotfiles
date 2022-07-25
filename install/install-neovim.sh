@@ -5,4 +5,3 @@ gem install neovim
 yay -S neovim-git nerd-fonts-complete 
 cd $HOME/dotfiles
 stow nvim
-yay -S nerd-fonts-complete
