@@ -1,7 +1,7 @@
-local colorscheme = "darkplus"
+-- local colorscheme = "darkplus"
 -- local colorscheme = "onedarker"
--- vim.g.catppuccin_flavour = "mocha" -- latte, frappe, macchiato, mocha
--- local colorscheme = "catppuccin"
+vim.g.catppuccin_flavour = "mocha" -- latte, frappe, macchiato, mocha
+local colorscheme = "catppuccin"
 
 local status_ok, _ = pcall(vim.cmd, "colorscheme " .. colorscheme)
 if not status_ok then

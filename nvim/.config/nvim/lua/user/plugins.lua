@@ -85,10 +85,7 @@ return packer.startup(function(use)
     -- Colorschemes
     use "lunarvim/darkplus.nvim"
     use "lunarvim/onedarker.nvim"
-    use({
-        "catppuccin/nvim",
-        as = "catppuccin"
-    })
+    use { "catppuccin/nvim", as = "catppuccin" }
 
     -- Tree Explorer
     use {
@@ -128,6 +125,7 @@ return packer.startup(function(use)
         'romgrk/barbar.nvim',
         requires = {'kyazdani42/nvim-web-devicons'}
     }   
+    
     -- Blank Indentation Line
     use "lukas-reineke/indent-blankline.nvim"
 
@@ -197,7 +195,26 @@ return packer.startup(function(use)
             }
         end
     }   
-
+    
+    -- Surround things faster
+    use 'tpope/vim-surround'
+    
+    -- See colors in neovim    
+    use {
+        "rrethy/vim-hexokinase", 
+        run = "cd ~/.local/share/nvim/site/pack/packer/start/vim-hexokinase && make hexokinase",
+        vim.cmd("let g:Hexokinase_highlighters = ['virtual', 'backgroundfull']")
+    }
+    
+    -- Color Picker
+    use {
+        "max397574/colortils.nvim",
+        cmd = "Colortils",
+        config = function()
+            require("colortils").setup()
+        end,
+    }
+    
     -- Automatically set up your configuration after cloning packer.nvim
     -- Put this at the end after all plugins
     if PACKER_BOOTSTRAP then

@@ -195,6 +195,11 @@ local mappings = {
     ["T"] = { "<cmd>NvimTreeToggle<cr>", "Open/Close" },
     ["L"] = { "<cmd>VimtexCompile<cr>", "Latex" },
     ["/"] = { "<cmd>lua require('Comment.api').toggle_current_linewise()<CR>", "Comment" },
+
+    c = {
+        name = "Color Picker",
+        l = {"<cmd>Colortils css list<cr>", "List CSS Colors"},
+    },
 }
 
 local mappingsv = {
