@@ -41,8 +41,7 @@ capabilities.textDocument.completion.completionItem.snippetSupport = true
 
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
--- local servers = { 'pyright', 'clangd', 'jdtls', 'html'}
-local servers = { 'pyright', 'jdtls', 'html', 'cssls', 'tsserver'}
+local servers = { 'pyright', 'jdtls', 'html', 'cssls', 'tsserver', 'clangd'}
 for _, lsp in pairs(servers) do
     require('lspconfig')[lsp].setup {
         on_attach = on_attach,
