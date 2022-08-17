@@ -194,7 +194,7 @@ local mappings = {
 
     ["T"] = { "<cmd>NvimTreeToggle<cr>", "Open/Close" },
     ["L"] = { "<cmd>VimtexCompile<cr>", "Latex" },
-    ["/"] = { "<cmd>lua require('Comment.api').toggle_current_linewise()<CR>", "Comment" },
+    ["/"] = { "<Plug>(comment_toggle_linewise_current)", "Comment" },
 
     c = {
         name = "Color Picker",
@@ -203,7 +203,7 @@ local mappings = {
 }
 
 local mappingsv = {
-    ["/"] = { "<ESC><CMD>lua require('Comment.api').toggle_linewise_op(vim.fn.visualmode())<CR>", "Comment" },
+    ["/"] = { "<Plug>(comment_toggle_linewise_visual)", "Comment" },
 }
 
 -- TODO: tirar whickeys inúteis

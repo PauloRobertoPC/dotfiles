@@ -187,7 +187,7 @@ awful.screen.connect_for_each_screen(function(s)
     set_wallpaper(s)
 
     -- Each screen has its own tag table.
-    awful.tag({ "1", "2", "3", "4", "5", "6", "7", "8", "9" }, s, awful.layout.layouts[1])
+    awful.tag({ "1", "2", "3", "4", "5"}, s, awful.layout.layouts[1])
 
     -- Create a promptbox for each screen
     s.mypromptbox = awful.widget.prompt()
@@ -204,6 +204,7 @@ awful.screen.connect_for_each_screen(function(s)
         screen  = s,
         filter  = awful.widget.taglist.filter.all,
         buttons = taglist_buttons,
+        layout  = wibox.layout.fixed.vertical
     }
 
     -- Create a tasklist widget
@@ -214,13 +215,13 @@ awful.screen.connect_for_each_screen(function(s)
     }
 
     -- Create the wibox
-    s.mywibox = awful.wibar({ position = "top", screen = s})
+    s.mywibox = awful.wibar({ position = "left", screen = s})
 
     -- Add widgets to the wibox
     s.mywibox:setup {
-        layout = wibox.layout.align.horizontal,
+        layout = wibox.layout.align.vertical,
         { -- Left widgets
-            layout = wibox.layout.fixed.horizontal,
+            layout = wibox.layout.fixed.vertical,
             s.mylayoutbox,
             -- mylauncher,
             s.mytaglist,
@@ -228,7 +229,7 @@ awful.screen.connect_for_each_screen(function(s)
         },
         s.mytasklist, -- Middle widget
         { -- Right widgets
-            layout = wibox.layout.fixed.horizontal,
+            layout = wibox.layout.fixed.vertical,
             mykeyboardlayout,
             wibox.widget.systray(),
             wibox.widget.textclock(),
@@ -300,7 +301,7 @@ globalkeys = gears.table.join(
         {description = "open a terminal", group = "applications"}),
     awful.key({ alt,           }, "w", function () awful.spawn("firefox-developer-edition") end,
         {description = "web browser", group = "applications"}),
-    awful.key({ alt,           }, "f", function () awful.spawn("thunar") end,
+    awful.key({ alt,           }, "f", function () awful.spawn("nautilus") end,
         {description = "filer explorer", group = "applications"}),
     awful.key({ alt,           }, "t", function () awful.spawn("telegram-desktop") end,
         {description = "telegram", group = "applications"}),
@@ -319,6 +320,7 @@ globalkeys = gears.table.join(
     awful.key({  "Shift" }, "Print", function () awful.spawn("flameshot gui -c -p /home/pinto/Pictures/Screenshots/") end,
         {description = "screenshot area", group = "screenshot"}),
 
+    -- Volume
     awful.key({           }, "XF86AudioRaiseVolume", function () volume_slider.value = volume_slider.value + 5 end,
         {description = "increase volume", group = "audio and brightness"}),
     awful.key({           }, "XF86AudioLowerVolume", function () volume_slider.value = volume_slider.value - 5 end,
@@ -426,7 +428,8 @@ clientkeys = gears.table.join(
 -- Bind all key numbers to tags.
 -- Be careful: we use keycodes to make it work on any keyboard layout.
 -- This should map on the top row of your keyboard, usually 1 to 9.
-for i = 1, 9 do
+total_tags = 5 --[[ number of tags ]]
+for i = 1, total_tags do
     globalkeys = gears.table.join(globalkeys,
         -- View tag only.
         awful.key({ modkey }, "#" .. i + 9,
@@ -515,7 +518,7 @@ awful.rules.rules = {
             "pinentry",
         },
         class = {
-            "megasync",
+            "MEGAsync",
             "styck",
             "Arandr",
             "Blueman-manager",

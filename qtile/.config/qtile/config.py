@@ -40,6 +40,7 @@ telegram = "telegram-desktop"
 discord = "discord"
 ferdi = "ferdi"
 anki = "anki"
+calculator = "gnome-calculator"
 
 keys = [
 
@@ -51,6 +52,7 @@ keys = [
     Key([alt], "d", lazy.spawn(discord), desc="Discord"),
     Key([alt], "f", lazy.spawn(filer_explorer), desc="Filer Explorer"),
     Key([alt], "a", lazy.spawn(anki), desc="Anki"),
+    Key([alt], "c", lazy.spawn(calculator), desc="Calculator"),
     Key([alt], "r", lazy.spawn("rofi -show drun -show-icons"), desc="Rofi"),
 
     # Screenshots
