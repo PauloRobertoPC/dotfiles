@@ -1,21 +1,23 @@
 sudo pacman -Syyu
-sudo pacman -S wget github-cli base-devel python-pip jdk-openjdk go ruby perl npm yarn ripgrep fd xsel bat zip unzip
-sudo pacman -S stow gvim kitty tmux zsh zsh-completions
+sudo pacman -S wget github-cli base-devel python-pip jdk-openjdk go ruby perl npm yarn ripgrep fd xsel bat zip unzip cmake stow gvim kitty tmux rofi firefox-developer-edition telegram-desktop discord mpd mplayer qtile nitrogen
+
 cd $HOME
 git clone https://aur.archlinux.org/yay.git
 cd yay
 makepkg -si
-sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
-git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
-git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
-~/.fzf/install
-source ~/.zshrc
-chsh -s $(which zsh)
 cd $HOME
 cd dotfiles
+
+rm -r ~/.config/qtile/
+stow qtile
+stow rofi
 stow tmux
 stow kitty
-stow zsh
-yay -S pamac-all
+
+yay -S megasync ferdi-bin visual-studio-code-bin anki-git neovim-git nerd-fonts-complete texlive-full
+
+pip install pynvim
+sudo npm i -g neovim
+gem install neovim
+stow nvim
+
