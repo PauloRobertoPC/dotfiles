@@ -32,26 +32,28 @@ volume_icon = wibox.widget{
 
 -- Connect to `property::value` to use the value on change
 volume_slider:connect_signal("property::value",
-   function()
-      volume_text:set_text(tostring(volume_slider.value) .. "%")
-      awful.spawn("amixer -D pulse sset Master " .. volume_slider.value .. "%")
-   end
+    function()
+        volume_text:set_text(tostring(volume_slider.value) .. "%")
+        awful.spawn("amixer -D pulse sset Master " .. volume_slider.value .. "%")
+        
+        naughty.notify({ title = "Volume", message = volume_slider.value .. "%", timeout = 1 })
+    end
 )
 
 volume_widget = wibox.widget{
-   {
-      {
-         volume_icon,
-         volume_text,
-         volume_slider,
-         spacing = 2,
-         layout = wibox.layout.fixed.horizontal
-      },
-      margins = 8,
-      widget = wibox.container.margin
-   },
-   shape       = function(cr, width, height) gears.shape.rounded_rect(cr, width, height, 15) end,
-   shape_clip  = true,
-   bg = "#ebc034",
-   widget = wibox.container.background
+    {
+        {
+            volume_icon,
+            volume_text,
+            volume_slider,
+            spacing = 2,
+            layout = wibox.layout.fixed.horizontal
+        },
+        margins = 8,
+        widget = wibox.container.margin
+    },
+    shape       = function(cr, width, height) gears.shape.rounded_rect(cr, width, height, 15) end,
+    shape_clip  = true,
+    bg = "#ebc034",
+    widget = wibox.container.background
 }

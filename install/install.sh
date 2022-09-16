@@ -14,7 +14,7 @@ stow rofi
 stow tmux
 stow kitty
 
-yay -S awesome-git megasync-bin ferdi-bin visual-studio-code-bin anki-git neovim-git nerd-fonts-complete texlive-full
+yay -S awesome-git megasync-bin visual-studio-code-bin anki-git neovim-git nerd-fonts-complete texlive-full openboard firefox-pwa-bin
 
 stow awesome
 pip install pynvim

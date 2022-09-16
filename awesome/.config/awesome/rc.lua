@@ -23,12 +23,16 @@ require("volume")
 local botao = require("sys_information")
 require("autostart")
 
--- Undestanding
---require("utextbox")
---require("uslide")
---require("ucontainers")
---require("dropdown")
 require("sys_information")
+
+-- local w = wibox.widget {
+--     text   = "Testandooooo",
+--     widget = wibox.widget.textbox,
+--  }
+-- require("signals")
+--  awesome.connect_signal("signal::ram", function(used, total)
+--     w.text = tostring(used) .. " and " .. tostring(total)
+--     end)
 
 
 -- {{{ Error handling
@@ -179,6 +183,11 @@ local function set_wallpaper(s)
     end
 end
 
+
+local systray = wibox.widget.systray()
+systray.horizontal = false
+
+
 -- Re-set wallpaper when a screen's geometry changes (e.g. different resolution)
 screen.connect_signal("property::geometry", set_wallpaper)
 
@@ -224,17 +233,19 @@ awful.screen.connect_for_each_screen(function(s)
             layout = wibox.layout.fixed.vertical,
             s.mylayoutbox,
             -- mylauncher,
-            s.mytaglist,
             s.mypromptbox,
         },
-        s.mytasklist, -- Middle widget
+        -- s.mytasklist, -- Middle widget
+        s.mytaglist,
         { -- Right widgets
             layout = wibox.layout.fixed.vertical,
             mykeyboardlayout,
-            wibox.widget.systray(),
+            systray,
+            -- wibox.widget.systray(),
             wibox.widget.textclock(),
             volume_widget,
             botao,
+            -- w,
         },
     }
 end)
@@ -299,12 +310,14 @@ globalkeys = gears.table.join(
         {description = "app launcher", group = "applications"}),
     awful.key({ alt,           }, "Return", function () awful.spawn(terminal) end,
         {description = "open a terminal", group = "applications"}),
-    awful.key({ alt,           }, "w", function () awful.spawn("firefox-developer-edition") end,
+    awful.key({ alt,           }, "w", function () awful.spawn("firefox") end,
         {description = "web browser", group = "applications"}),
     awful.key({ alt,           }, "f", function () awful.spawn("nautilus") end,
         {description = "filer explorer", group = "applications"}),
     awful.key({ alt,           }, "t", function () awful.spawn("telegram-desktop") end,
         {description = "telegram", group = "applications"}),
+    awful.key({ alt,           }, "d", function () awful.spawn("discord") end,
+        {description = "discord", group = "applications"}),
     awful.key({ alt,           }, "z", function () awful.spawn("ferdi") end,
         {description = "zap zap", group = "applications"}),
     awful.key({ alt,           }, "a", function () awful.spawn("anki") end,
@@ -321,9 +334,9 @@ globalkeys = gears.table.join(
         {description = "screenshot area", group = "screenshot"}),
 
     -- Volume
-    awful.key({           }, "XF86AudioRaiseVolume", function () volume_slider.value = volume_slider.value + 5 end,
+    awful.key({           }, "XF86AudioRaiseVolume", function () volume_slider.value = volume_slider.value + 2 end,
         {description = "increase volume", group = "audio and brightness"}),
-    awful.key({           }, "XF86AudioLowerVolume", function () volume_slider.value = volume_slider.value - 5 end,
+    awful.key({           }, "XF86AudioLowerVolume", function () volume_slider.value = volume_slider.value - 2 end,
         {description = "decrease volume", group = "audio and brightness"}),
 
 
@@ -519,6 +532,7 @@ awful.rules.rules = {
         },
         class = {
             "MEGAsync",
+            "TogglDesktop",
             "styck",
             "Arandr",
             "Blueman-manager",

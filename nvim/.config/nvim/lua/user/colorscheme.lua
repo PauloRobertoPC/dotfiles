@@ -1,5 +1,14 @@
 -- local colorscheme = "darkplus"
+
 -- local colorscheme = "onedarker"
+
+-- local colorscheme = "tokyodark" 
+ 
+-- ALERT: also change the theme in lualine
+-- vim.g.tokyonight_style = "night" -- night, storm, day
+-- local colorscheme = "tokyonight"
+
+-- ALERT: also change the theme in lualine
 vim.g.catppuccin_flavour = "mocha" -- latte, frappe, macchiato, mocha
 local colorscheme = "catppuccin"
 

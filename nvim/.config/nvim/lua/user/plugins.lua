@@ -86,6 +86,8 @@ return packer.startup(function(use)
     use "lunarvim/darkplus.nvim"
     use "lunarvim/onedarker.nvim"
     use { "catppuccin/nvim", as = "catppuccin" }
+    use 'folke/tokyonight.nvim'
+    use 'tiagovla/tokyodark.nvim'
 
     -- Tree Explorer
     use {
