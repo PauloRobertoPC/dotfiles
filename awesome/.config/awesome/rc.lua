@@ -17,6 +17,8 @@ local hotkeys_popup = require("awful.hotkeys_popup")
 -- when client with a matching name is opened:
 require("awful.hotkeys_popup.keys")
 
+local dpi = beautiful.xresources.apply_dpi
+
 require("volume")
 --local ram_widget = require("ram")
 --local cpu_widget = require("cpu")
@@ -65,7 +67,7 @@ end
 beautiful.init("~/.config/awesome/theme.lua")
 
 -- This is used later as the default terminal and editor to run.
-terminal = "kitty"
+terminal = "alacritty"
 editor = os.getenv("EDITOR") or "nvim"
 editor_cmd = terminal .. " -e " .. editor
 
@@ -187,6 +189,23 @@ end
 local systray = wibox.widget.systray()
 systray.horizontal = false
 
+local clock = wibox.widget{
+    {
+        widget = wibox.widget.textclock,
+        format = "%I",
+        valign = "center",
+        align = "center"
+    },
+    {
+        widget = wibox.widget.textclock,
+        format = "%M",
+        valign = "center",
+        align = "center"
+    },
+    layout = wibox.layout.fixed.vertical,
+    spacing = dpi(3)
+}
+
 
 -- Re-set wallpaper when a screen's geometry changes (e.g. different resolution)
 screen.connect_signal("property::geometry", set_wallpaper)
@@ -196,7 +215,7 @@ awful.screen.connect_for_each_screen(function(s)
     set_wallpaper(s)
 
     -- Each screen has its own tag table.
-    awful.tag({ "1", "2", "3", "4", "5"}, s, awful.layout.layouts[1])
+    awful.tag({ "", "", "韛", "", "﬐"}, s, awful.layout.layouts[1])
 
     -- Create a promptbox for each screen
     s.mypromptbox = awful.widget.prompt()
@@ -242,7 +261,8 @@ awful.screen.connect_for_each_screen(function(s)
             mykeyboardlayout,
             systray,
             -- wibox.widget.systray(),
-            wibox.widget.textclock(),
+            -- wibox.widget.textclock(),
+            clock,
             volume_widget,
             botao,
             -- w,
@@ -312,7 +332,7 @@ globalkeys = gears.table.join(
         {description = "open a terminal", group = "applications"}),
     awful.key({ alt,           }, "w", function () awful.spawn("firefox") end,
         {description = "web browser", group = "applications"}),
-    awful.key({ alt,           }, "f", function () awful.spawn("nautilus") end,
+    awful.key({ alt,           }, "f", function () awful.spawn("thunar") end,
         {description = "filer explorer", group = "applications"}),
     awful.key({ alt,           }, "t", function () awful.spawn("telegram-desktop") end,
         {description = "telegram", group = "applications"}),
