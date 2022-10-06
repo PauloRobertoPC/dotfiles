@@ -114,8 +114,11 @@ myawesomemenu = {
     { "quit", function() awesome.quit() end },
 }
 
-mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesome_icon },
-    { "open terminal", terminal }
+mymainmenu = awful.menu({ items = { 
+    { "awesome", myawesomemenu, beautiful.awesome_icon },
+    { "open terminal", terminal },
+    {"restart", "systemctl reboot"},
+    {"shutdown", "shutdown now"}
 }
 })
 
