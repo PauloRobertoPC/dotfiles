@@ -337,5 +337,6 @@ colors: *macchiato
 
 #Font configuration
 font:
-  # Font size
-  size: 14.3
+  size: 12.5
+  # normal: 
+  #   family: JetBrains Mono Nerd Font Bold 10

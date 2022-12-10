@@ -60,7 +60,8 @@ return packer.startup(function(use)
     use "hrsh7th/cmp-nvim-lsp"
 
     -- LSP
-    use "williamboman/nvim-lsp-installer"
+    use { "williamboman/mason.nvim" } 
+    -- use "williamboman/nvim-lsp-installer"
     use 'neovim/nvim-lspconfig'
     use 'simrat39/symbols-outline.nvim'
     use 'ray-x/lsp_signature.nvim'      -- Need configuration in lsp-config
@@ -88,6 +89,7 @@ return packer.startup(function(use)
     use { "catppuccin/nvim", as = "catppuccin" }
     use 'folke/tokyonight.nvim'
     use 'tiagovla/tokyodark.nvim'
+    use 'sam4llis/nvim-tundra'
 
     -- Tree Explorer
     use {

@@ -1,4 +1,5 @@
-require("nvim-lsp-installer").setup {}
+-- require("nvim-lsp-installer").setup {}
+require("mason").setup()
 
 -- Mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
@@ -15,7 +16,7 @@ local on_attach = function(client, bufnr)
     -- My configurations
     require "lsp_signature".on_attach()
     print("LSP has started") 
-
+    
     -- Enable completion triggered by <c-x><c-o>
     vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 

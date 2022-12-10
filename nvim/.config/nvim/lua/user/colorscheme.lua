@@ -4,6 +4,8 @@
 
 -- local colorscheme = "tokyodark" 
  
+-- local colorscheme = "tundra" 
+ 
 -- ALERT: also change the theme in lualine
 -- vim.g.tokyonight_style = "night" -- night, storm, day
 -- local colorscheme = "tokyonight"
