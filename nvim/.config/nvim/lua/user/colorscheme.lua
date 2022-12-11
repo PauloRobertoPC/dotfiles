@@ -1,3 +1,6 @@
+require("catppuccin").setup()
+require('nightfox').setup()
+
 -- local colorscheme = "darkplus"
 
 -- local colorscheme = "onedarker"
@@ -11,8 +14,10 @@
 -- local colorscheme = "tokyonight"
 
 -- ALERT: also change the theme in lualine
-vim.g.catppuccin_flavour = "mocha" -- latte, frappe, macchiato, mocha
-local colorscheme = "catppuccin"
+-- vim.g.catppuccin_flavour = "mocha" -- latte, frappe, macchiato, mocha
+-- local colorscheme = "catppuccin"
+
+local colorscheme = "carbonfox" -- nightfox, dayfox, dawnfox, duskfox, nordfox, terafox, carbonfox
 
 local status_ok, _ = pcall(vim.cmd, "colorscheme " .. colorscheme)
 if not status_ok then

@@ -90,6 +90,7 @@ return packer.startup(function(use)
     use 'folke/tokyonight.nvim'
     use 'tiagovla/tokyodark.nvim'
     use 'sam4llis/nvim-tundra'
+    use "EdenEast/nightfox.nvim"
 
     -- Tree Explorer
     use {
@@ -105,6 +106,7 @@ return packer.startup(function(use)
         'nvim-lualine/lualine.nvim',
         requires = { 'kyazdani42/nvim-web-devicons', opt = true }
     }
+    -- use { 'feline-nvim/feline.nvim', branch = '0.5-compat' }
 
     -- Rainbow Parentheses
     use {
@@ -129,6 +131,10 @@ return packer.startup(function(use)
         'romgrk/barbar.nvim',
         requires = {'kyazdani42/nvim-web-devicons'}
     }   
+    use {
+        'ThePrimeagen/harpoon',
+        requires = {'nvim-lua/plenary.nvim'}
+    }
     
     -- Blank Indentation Line
     use "lukas-reineke/indent-blankline.nvim"

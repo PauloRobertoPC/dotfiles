@@ -1,5 +1,6 @@
 -- require("nvim-lsp-installer").setup {}
 require("mason").setup()
+require("symbols-outline").setup()
 
 -- Mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions

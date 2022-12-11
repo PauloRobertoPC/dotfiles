@@ -3,7 +3,6 @@ require('impatient')
 vim.notify = require("notify")
 require "user.keymaps"
 require "user.options"
-require "user.catppuccin"
 require "user.colorscheme"
 require "user.whichkey"
 require "user.treesitter"
