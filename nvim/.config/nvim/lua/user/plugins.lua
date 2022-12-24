@@ -52,7 +52,7 @@ return packer.startup(function(use)
     use 'L3MON4D3/LuaSnip'
 
     -- Completion
-    use "hrsh7th/nvim-cmp" 
+    use "hrsh7th/nvim-cmp"
     use "hrsh7th/cmp-buffer"
     use "hrsh7th/cmp-path"
     use "hrsh7th/cmp-cmdline"
@@ -60,12 +60,15 @@ return packer.startup(function(use)
     use "hrsh7th/cmp-nvim-lsp"
 
     -- LSP
-    use { "williamboman/mason.nvim" } 
-    -- use "williamboman/nvim-lsp-installer"
-    use 'neovim/nvim-lspconfig'
-    use 'simrat39/symbols-outline.nvim'
-    use 'ray-x/lsp_signature.nvim'      -- Need configuration in lsp-config
-    use 'mfussenegger/nvim-jdtls'
+    use {
+        "williamboman/mason.nvim",
+        "williamboman/mason-lspconfig.nvim",
+        "neovim/nvim-lspconfig",
+        "simrat39/symbols-outline.nvim",
+        "ray-x/lsp_signature.nvim",      -- Need configuration in lsp-config
+        "mfussenegger/nvim-jdtls",
+        "j-hui/fidget.nvim",
+    }
     
     -- Debug Adapter Protocol
     use 'mfussenegger/nvim-dap'
@@ -81,6 +84,8 @@ return packer.startup(function(use)
     -- Treesitter
     use {
         "nvim-treesitter/nvim-treesitter",
+        'nvim-treesitter/playground',
+        'nvim-treesitter/nvim-treesitter-textobjects',
         run = ":TSUpdate",
     }
     -- Colorschemes

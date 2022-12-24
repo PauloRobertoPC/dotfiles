@@ -25,8 +25,8 @@ source $ZSH/oh-my-zsh.sh
 export EDITOR='nvim'
 
 #aliases
-alias tmux=tmux -u
-alias ls=lsd
+alias tmux='tmux -u'
+alias ls='lsd'
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh

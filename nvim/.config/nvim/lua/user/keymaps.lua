@@ -18,3 +18,5 @@ keymap("n", "<leader><C-V>", "\"+p", opts)      -- Copy For Machine Clipboard
 
 -- Visual --
 keymap("v", "<C-C>", "\"+y", opts)              -- Paste Machine Clipboard
+keymap("v", "J", ":m '>+1<CR>gv=gv", opts)      -- Code up
+keymap("v", "K", ":m '<-2<CR>gv=gv", opts)      -- Code down

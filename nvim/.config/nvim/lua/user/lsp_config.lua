@@ -1,6 +1,23 @@
--- require("nvim-lsp-installer").setup {}
+local servers = {
+                'clangd',
+                'cssls',
+                'emmet_ls',
+                'eslint',
+                'html',
+                'jdtls',
+                'tsserver',
+                'texlab',
+                'pyright',
+                'rust_analyzer',
+                'sumneko_lua'
+}
 require("mason").setup()
+require("mason-lspconfig").setup {
+    ensure_installed = servers,
+    automatic_installation = true,
+}
 require("symbols-outline").setup()
+require("fidget").setup()
 
 -- Mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
@@ -43,7 +60,6 @@ capabilities.textDocument.completion.completionItem.snippetSupport = true
 
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
-local servers = { 'pyright', 'jdtls', 'html', 'cssls', 'tsserver', 'clangd'}
 for _, lsp in pairs(servers) do
     require('lspconfig')[lsp].setup {
         on_attach = on_attach,
