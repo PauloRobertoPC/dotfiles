@@ -132,7 +132,8 @@ local mappings = {
     -- },
     -- All setted in 'lsp_config.lua' file
     l = { name = "LSP",},
-    
+    -- All setted in 'treesitter.lua' file
+    t = { name = "Treesitter",},
     f = {
         name = "Find",
         f = { "<cmd>lua require('telescope.builtin').find_files(require('telescope.themes'))<cr>", "Find files"},
@@ -146,7 +147,6 @@ local mappings = {
         k = { "<cmd>Telescope keymaps<cr>", "Keymaps" },
         C = { "<cmd>Telescope commands<cr>", "Commands" },
     },
-    
     d = {
         name = "Debug",
         a = { "<cmd>lua require'dap'.continue()<CR>", "Continue" },
@@ -156,7 +156,6 @@ local mappings = {
         e = { "<cmd>lua require'dap'.toggle_breakpoint()<CR>", "Toggle Breakpoint" },
         f = { "<cmd>lua require('dapui').toggle()<CR>", "Toggle DAP UI" },
     },
-    
     o = {
         name = "Open",
         e = { "<cmd>NvimTreeToggle<cr>", "Toggle Explorer Tree" },
@@ -165,17 +164,14 @@ local mappings = {
         p = { "<cmd>TSPlaygroundToggle<cr>", "Toggle Treesitter Playground" },
         t = { "<cmd>TodoQuickFix<cr>", "Open Todo Quickfix" },
     },
-    
     c = {
         name = "Color Picker",
         l = {"<cmd>Colortils css list<cr>", "List CSS Colors"},
     },
-
     [""] = {
         ["h"] = { "<cmd>nohlsearch<CR>", "No Highlight" },
         ["/"] = { "<Plug>(comment_toggle_linewise_current)", "Comment" },
     },
-
 }
 
 local mappingsv = {

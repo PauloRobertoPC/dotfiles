@@ -31,10 +31,10 @@ configs.setup {
     incremental_selection = {
         enable = true,
         keymaps = {
-            init_selection = '<c-space>',
-            node_incremental = '<c-space>',
-            scope_incremental = '<c-s>',
-            node_decremental = '<c-backspace>',
+            init_selection = '<space>tw',
+            node_incremental = '<space>tw',
+            scope_incremental = '<space>ts',
+            node_decremental = '<space>tb',
         },
     },
     textobjects = {
@@ -55,29 +55,29 @@ configs.setup {
             enable = true,
             set_jumps = true, -- whether to set jumps in the jumplist
             goto_next_start = {
-                [']m'] = '@function.outer',
-                [']]'] = '@class.outer',
+                ['<space>tf'] = '@function.outer',
+                ['<space>tcf'] = '@class.outer',
             },
             goto_next_end = {
-                [']M'] = '@function.outer',
-                [']['] = '@class.outer',
+                ['<space>tt'] = '@function.outer',
+                ['<space>tct'] = '@class.outer',
             },
             goto_previous_start = {
-                ['[m'] = '@function.outer',
-                ['[['] = '@class.outer',
+                ['<space>tF'] = '@function.outer',
+                ['<space>tcF'] = '@class.outer',
             },
             goto_previous_end = {
-                ['[M'] = '@function.outer',
-                ['[]'] = '@class.outer',
+                ['<space>tT'] = '@function.outer',
+                ['<space>tcT'] = '@class.outer',
             },
         },
         swap = {
             enable = true,
             swap_next = {
-                ['<leader>a'] = '@parameter.inner',
+                ['<leader>ts'] = '@parameter.inner',
             },
             swap_previous = {
-                ['<leader>A'] = '@parameter.inner',
+                ['<leader>tS'] = '@parameter.inner',
             },
         },
     },
