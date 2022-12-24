@@ -19,13 +19,17 @@ require("mason-lspconfig").setup {
 require("symbols-outline").setup()
 require("fidget").setup()
 
+local options = function(desc)
+    local opts = { noremap=true, silent=true, desc = desc }
+    return opts
+end
+
 -- Mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
-local opts = { noremap=true, silent=true }
-vim.api.nvim_set_keymap('n', '<space>e', '<cmd>lua vim.diagnostic.open_float()<CR>', opts)
-vim.api.nvim_set_keymap('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
-vim.api.nvim_set_keymap('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
-vim.api.nvim_set_keymap('n', '<space>q', '<cmd>lua vim.diagnostic.setloclist()<CR>', opts)
+vim.api.nvim_set_keymap('n', '<space>ls', '<cmd>lua vim.diagnostic.open_float()<CR>', options("[s]how Diagnostic"))
+vim.api.nvim_set_keymap('n', '<space>lb', '<cmd>lua vim.diagnostic.goto_prev()<CR>', options("Previous(b) Diagnostic"))
+vim.api.nvim_set_keymap('n', '<space>lw', '<cmd>lua vim.diagnostic.goto_next()<CR>', options("Next(w) Diagnostic"))
+vim.api.nvim_set_keymap('n', '<space>ll', '<cmd>lua vim.diagnostic.setloclist()<CR>', options("Diagnostics [l]ist"))
 
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
@@ -33,26 +37,28 @@ local on_attach = function(client, bufnr)
 
     -- My configurations
     require "lsp_signature".on_attach()
-    print("LSP has started") 
+    print("LSP has started")
     
     -- Enable completion triggered by <c-x><c-o>
     vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
     -- Mappings.
     -- See `:help vim.lsp.*` for documentation on any of the below functions
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-    -- vim.api.nvim_buf_set_keymap(bufnr, 'n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-    -- vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>la', '<cmd>lua vim.lsp.buf.code_action()<CR>', options("Code [a]ction"))
+    
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>lD', '<cmd>lua vim.lsp.buf.declaration()<CR>', options("Go to [D]eclaration"))
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>ld', '<cmd>lua vim.lsp.buf.definition()<CR>', options("Go to [d]efinition"))
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>li', '<cmd>lua vim.lsp.buf.implementation()<CR>', options("Go to [i]mplementation"))
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>lt', '<cmd>lua vim.lsp.buf.type_definition()<CR>', options("Go to [t]ype Definition"))
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>lr', '<cmd>lua vim.lsp.buf.references()<CR>', options("Go to [r]eferences"))
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>lR', '<cmd>lua vim.lsp.buf.rename()<CR>', options("[R]ename"))
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>lh', '<cmd>lua vim.lsp.buf.hover()<CR>', options("[h]over Documentation"))
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>lH', '<cmd>lua vim.lsp.buf.signature_help()<CR>', options("[H]over Signature Documentation"))
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>lf', '<cmd>lua vim.lsp.buf.formatting()<CR>', options("[f]ormat"))
+    
+    -- vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', options("TESTE"))
+    -- vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', options("TESTE"))
+    -- vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', options("TESTE"))
 end
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -71,6 +77,8 @@ for _, lsp in pairs(servers) do
     }
 end
 
+-- example in how the serrver is attached
+ 
 -- require'lspconfig'.clangd.setup{
 --     on_attach = function()
 --         print("Just an example to run in a specific server")
