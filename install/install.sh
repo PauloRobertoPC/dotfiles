@@ -12,7 +12,7 @@ sudo pacman -S --noconfirm \
     telegram-desktop discord mpd mplayer \
     qtile nitrogen flameshot neofetch \
     alsa alsa-utils lsd polkit alacritty \
-    gdb
+    gdb sox foliate
 
 # installing AUR
 cd $HOME
@@ -45,4 +45,4 @@ cd $HOME/dotfiles/install/
 
 # intalling heavy apps
 yay -S -noconfirm megasync-bin visual-studio-code-bin anki-git openboard
-yay -S -noconfirm texlive-full 
+yay -S -noconfirm texlive-full

@@ -19,6 +19,8 @@ require('nightfox').setup()
 
 local colorscheme = "carbonfox" -- nightfox, dayfox, dawnfox, duskfox, nordfox, terafox, carbonfox
 
+-- local colorscheme = "kanagawa"
+
 local status_ok, _ = pcall(vim.cmd, "colorscheme " .. colorscheme)
 if not status_ok then
   vim.notify("colorscheme " .. colorscheme .. " not found!")

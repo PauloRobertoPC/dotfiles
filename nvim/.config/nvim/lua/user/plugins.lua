@@ -69,7 +69,7 @@ return packer.startup(function(use)
         "mfussenegger/nvim-jdtls",
         "j-hui/fidget.nvim",
     }
-    
+
     -- Debug Adapter Protocol
     use 'mfussenegger/nvim-dap'
     use { "rcarriga/nvim-dap-ui", requires = {"mfussenegger/nvim-dap"} }
@@ -92,10 +92,11 @@ return packer.startup(function(use)
     use "lunarvim/darkplus.nvim"
     use "lunarvim/onedarker.nvim"
     use { "catppuccin/nvim", as = "catppuccin" }
-    use 'folke/tokyonight.nvim'
+    -- use 'folke/tokyonight.nvim'
     use 'tiagovla/tokyodark.nvim'
     use 'sam4llis/nvim-tundra'
     use "EdenEast/nightfox.nvim"
+    use "rebelot/kanagawa.nvim"
 
     -- Tree Explorer
     use {
@@ -140,8 +141,9 @@ return packer.startup(function(use)
         'ThePrimeagen/harpoon',
         requires = {'nvim-lua/plenary.nvim'}
     }
-    
+
     -- Blank Indentation Line
+    -- configuration of this plugin is in treesitter
     use "lukas-reineke/indent-blankline.nvim"
 
     -- Smooth Scroll
@@ -174,15 +176,25 @@ return packer.startup(function(use)
 
     -- Latex Compiler
     use 'lervag/vimtex'
+    -- Markdown Compiler
+    use({ "iamcco/markdown-preview.nvim", run = "cd app && npm install", setup = function() vim.g.mkdp_filetypes = { "markdown" } end, ft = { "markdown" }, })
 
     -- Vim + Tmux
-    use 'christoomey/vim-tmux-navigator'   
+    use 'christoomey/vim-tmux-navigator'
 
+    -- Git
     use {
         'lewis6991/gitsigns.nvim',
         config = function()
             require('gitsigns').setup()
         end
+    }
+    use {
+        'TimUntersberger/neogit',
+        config = function()
+            require('neogit').setup()
+        end,
+        requires = 'nvim-lua/plenary.nvim'
     }
 
     -- Prerequisite for todo-comments
@@ -197,7 +209,7 @@ return packer.startup(function(use)
             }
         end
     }
-    
+
     -- Tag problems with words
     use {
         "folke/todo-comments.nvim",
@@ -210,26 +222,21 @@ return packer.startup(function(use)
             }
         end
     }   
-    
+
     -- Surround things faster
-    use 'tpope/vim-surround'
-    
-    -- See colors in neovim    
-    use {
-        "rrethy/vim-hexokinase", 
-        run = "cd ~/.local/share/nvim/site/pack/packer/start/vim-hexokinase && make hexokinase",
-        vim.cmd("let g:Hexokinase_highlighters = ['virtual', 'backgroundfull']")
-    }
-    
-    -- Color Picker
-    use {
-        "max397574/colortils.nvim",
-        cmd = "Colortils",
+    use({
+        "kylechui/nvim-surround",
+        tag = "*", -- Use for stability; omit to use `main` branch for the latest features
         config = function()
-            require("colortils").setup()
-        end,
-    }
-    
+            require("nvim-surround").setup({
+                -- Configuration here, or leave empty to use defaults
+            })
+        end
+    })
+
+    -- See and Pick colors in neovim
+    use "uga-rosa/ccc.nvim"
+
     -- Automatically set up your configuration after cloning packer.nvim
     -- Put this at the end after all plugins
     if PACKER_BOOTSTRAP then

@@ -48,9 +48,8 @@ bindsym $alt+w exec firefox
 bindsym $alt+a exec anki
 bindsym $alt+z exec ferdi
 bindsym $alt+d exec discord
-bindsym $alt+f exec thunar
+bindsym $alt+f exec nautilus
 bindsym $alt+c exec gnome-calculator
-# bindsym $alt+t exec thunar
 bindcode 107 exec flameshot gui -c -p $HOME/Pictures/Screenshots/
 
 #transparency of focused window | mod + {+, -}

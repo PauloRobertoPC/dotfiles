@@ -10,9 +10,6 @@ stow nvim
 # installing plugins without open neovim
 nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
 
-# hexcolor plugin
-cd ~/.local/share/nvim/site/pack/packer/start/vim-hexokinase && make hexokinase
-
 # python debug
 cd $HOME
 mkdir .virtualenvs

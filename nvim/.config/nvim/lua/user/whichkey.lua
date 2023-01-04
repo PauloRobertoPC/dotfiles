@@ -160,13 +160,16 @@ local mappings = {
         name = "Open",
         e = { "<cmd>NvimTreeToggle<cr>", "Toggle Explorer Tree" },
         l = { "<cmd>VimtexCompile<cr>", "Latex" },
+        m = { "<cmd>MarkdownPreviewToggle<cr>", "Markdown" },
         o = { "<cmd>SymbolsOutline<cr>", "Toggle Outline" },
         p = { "<cmd>TSPlaygroundToggle<cr>", "Toggle Treesitter Playground" },
         t = { "<cmd>TodoQuickFix<cr>", "Open Todo Quickfix" },
     },
     c = {
-        name = "Color Picker",
-        l = {"<cmd>Colortils css list<cr>", "List CSS Colors"},
+        name = "Colors",
+        c = {"<cmd>CccConvert<cr>", "Convert"},
+        p = {"<cmd>CccPick<cr>", "Pick Color"},
+        s = {"<cmd>CccHighlighterToggle<cr>", "Show/Hide Colors"},
     },
     [""] = {
         ["h"] = { "<cmd>nohlsearch<CR>", "No Highlight" },
