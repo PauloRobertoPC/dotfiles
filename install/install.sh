@@ -48,5 +48,10 @@ cd $HOME/dotfiles/install/
 ./i3.sh
 
 # intalling heavy apps
-yay -S -noconfirm megasync-bin visual-studio-code-bin anki-git openboard
+yay -S -noconfirm \
+    megasync-bin nautilus-megasync \
+    visual-studio-code-bin anki-git \
+    openboard jdownloader2 \
+    amberol 
+
 yay -S -noconfirm texlive-full
