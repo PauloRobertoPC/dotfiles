@@ -35,6 +35,10 @@ stow kitty
 stow alacritty
 stow rofi
 
+#installing zsh
+cd $HOME/dotfiles/install/
+./zsh.sh
+
 #installing neovim
 cd $HOME/dotfiles/install/
 ./neovim.sh
