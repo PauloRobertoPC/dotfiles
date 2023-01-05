@@ -21,11 +21,7 @@ cd yay
 makepkg -si
 
 # polkit and font
-yay -S --noconfirm xfce-polkit nerd-fonts-complete
-
-# fetching dotfiles
-cd $HOME
-git clone https://github.com/PauloRobertoPC/dotfiles
+yay -S --noconfirm gnome-browser-connector nerd-fonts-complete
 
 # stowing rofi, tmux and kitty
 cd $HOME/dotfiles
@@ -48,10 +44,9 @@ cd $HOME/dotfiles/install/
 ./i3.sh
 
 # intalling heavy apps
-yay -S -noconfirm \
+yay -S --noconfirm \
     megasync-bin nautilus-megasync \
     visual-studio-code-bin anki-git \
-    openboard jdownloader2 \
-    amberol 
+    jdownloader2 amberol ferdium-bin \
 
-yay -S -noconfirm texlive-full
+yay -S --noconfirm texlive-full

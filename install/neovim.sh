@@ -1,4 +1,4 @@
-yay -S neovim-git nerd-fonts-complete codelldb-bin
+yay -S neovim-git codelldb-bin
 
 pip install pynvim
 sudo npm i -g neovim
