@@ -89,17 +89,7 @@ local optsv = {
 
 
 local mappings = {
-    b = {
-        name = "Buffers",
-        a = {"<cmd>lua require('harpoon.mark').add_file()<cr>", "Add Buffer"},
-        h = {"<cmd>lua require('harpoon.ui').nav_file(1) <cr>", "Go to 1"},
-        j = {"<cmd>lua require('harpoon.ui').nav_file(2) <cr>", "Go to 2"},
-        k = {"<cmd>lua require('harpoon.ui').nav_file(3) <cr>", "Go to 3"},
-        l = {"<cmd>lua require('harpoon.ui').nav_file(4) <cr>", "Go to 4"},
-        [";"] = {"<cmd>lua require('harpoon.ui').nav_file(5) <cr>", "Go to 5"},
-        s = {"<cmd>lua require('harpoon.ui').toggle_quick_menu()<cr>", "See Menu"},
-        t = {"<cmd>lua require('telescope.builtin').buffers(require('telescope.themes').get_dropdown{previewer = false})<cr>", "Buffers"},
-    },
+    ["b"] = { "<cmd> BufferLinePick<cr>", "Buffer Picker" },
     p = {
         name = "Packer",
         c = { "<cmd>PackerCompile<cr>", "Compile" },
@@ -136,7 +126,7 @@ local mappings = {
     t = { name = "Treesitter",},
     f = {
         name = "Find",
-        f = { "<cmd>lua require('telescope.builtin').find_files(require('telescope.themes'))<cr>", "Find files"},
+        f = { "<cmd>lua require('telescope.builtin').find_files(require('telescope.themes'))<cr>", "Find files" },
         g = { "<cmd>Telescope live_grep theme=ivy<cr>", "Find Text" },
         b = { "<cmd>Telescope git_branches<cr>", "Checkout branch" },
         c = { "<cmd>Telescope colorscheme<cr>", "Colorscheme" },
@@ -158,7 +148,7 @@ local mappings = {
     },
     o = {
         name = "Open",
-        e = { "<cmd>NvimTreeToggle<cr>", "Toggle Explorer Tree" },
+        e = { "<cmd>Neotree toggle<cr>", "Toggle Explorer Tree" },
         l = { "<cmd>VimtexCompile<cr>", "Latex" },
         m = { "<cmd>MarkdownPreviewToggle<cr>", "Markdown" },
         o = { "<cmd>SymbolsOutline<cr>", "Toggle Outline" },

@@ -12,7 +12,7 @@ sudo pacman -S --noconfirm \
     telegram-desktop discord mpd mplayer \
     qtile nitrogen flameshot neofetch \
     alsa alsa-utils lsd polkit alacritty \
-    gdb sox foliate
+    gdb sox 
 
 # installing AUR
 cd $HOME
@@ -48,5 +48,7 @@ yay -S --noconfirm \
     megasync-bin nautilus-megasync \
     visual-studio-code-bin anki-git \
     jdownloader2 amberol ferdium-bin \
+    koodo-reader-bin rnote \
+    bcm20702a1-firmware
 
 yay -S --noconfirm texlive-full

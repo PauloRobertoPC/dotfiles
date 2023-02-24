@@ -47,6 +47,8 @@ return packer.startup(function(use)
     use "wbthomason/packer.nvim" -- Have packer manage itself
     use "nvim-lua/popup.nvim" -- An implementation of the Popup API from vim in Neovim
     use "nvim-lua/plenary.nvim" -- Useful lua functions used ny lots of plugins
+    use 'MunifTanjim/nui.nvim'
+    use 'kyazdani42/nvim-web-devicons'
 
     -- Snippets
     use 'L3MON4D3/LuaSnip'
@@ -69,6 +71,17 @@ return packer.startup(function(use)
         "mfussenegger/nvim-jdtls",
         "j-hui/fidget.nvim",
     }
+    use({
+        "utilyre/barbecue.nvim",
+        tag = "*",
+        requires = {
+            "SmiteshP/nvim-navic",
+            -- "nvim-tree/nvim-web-devicons", -- optional dependency
+        },
+        config = function()
+            require("barbecue").setup()
+        end,
+    })
 
     -- Debug Adapter Protocol
     use 'mfussenegger/nvim-dap'
@@ -76,10 +89,7 @@ return packer.startup(function(use)
     use 'mfussenegger/nvim-dap-python'
 
     -- Telescope
-    use {
-        'nvim-telescope/telescope.nvim',
-        requires = { {'nvim-lua/plenary.nvim'} }
-    }
+    use { 'nvim-telescope/telescope.nvim', requires = { {'nvim-lua/plenary.nvim'} } }
 
     -- Treesitter
     use {
@@ -88,23 +98,21 @@ return packer.startup(function(use)
         'nvim-treesitter/nvim-treesitter-textobjects',
         run = ":TSUpdate",
     }
+
     -- Colorschemes
-    use "lunarvim/darkplus.nvim"
-    use "lunarvim/onedarker.nvim"
     use { "catppuccin/nvim", as = "catppuccin" }
-    -- use 'folke/tokyonight.nvim'
-    use 'tiagovla/tokyodark.nvim'
-    use 'sam4llis/nvim-tundra'
     use "EdenEast/nightfox.nvim"
-    use "rebelot/kanagawa.nvim"
+    use "loctvl842/monokai-pro.nvim"
 
     -- Tree Explorer
     use {
-        'kyazdani42/nvim-tree.lua',
-        requires = {
-            'kyazdani42/nvim-web-devicons', -- optional, for file icon
-        },
-        tag = 'nightly' -- optional, updated every week. (see issue #1193)
+        "nvim-neo-tree/neo-tree.nvim",
+        branch = "v2.x",
+        requires = { 
+            "nvim-lua/plenary.nvim",
+            "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
+            "MunifTanjim/nui.nvim",
+        }
     }
 
     -- Status Line
@@ -115,9 +123,7 @@ return packer.startup(function(use)
     -- use { 'feline-nvim/feline.nvim', branch = '0.5-compat' }
 
     -- Rainbow Parentheses
-    use {
-        "p00f/nvim-ts-rainbow",
-    }
+    use "HiPhish/nvim-ts-rainbow2"
 
     -- Fancy Notifications
     use {
@@ -132,15 +138,7 @@ return packer.startup(function(use)
     }
 
     -- Bufferline
-    -- use {'akinsho/bufferline.nvim', tag = "v2.*", requires = 'kyazdani42/nvim-web-devicons'}
-    use {
-        'romgrk/barbar.nvim',
-        requires = {'kyazdani42/nvim-web-devicons'}
-    }   
-    use {
-        'ThePrimeagen/harpoon',
-        requires = {'nvim-lua/plenary.nvim'}
-    }
+    use { 'akinsho/bufferline.nvim', tag = "v3.*", requires = 'nvim-tree/nvim-web-devicons' }
 
     -- Blank Indentation Line
     -- configuration of this plugin is in treesitter
@@ -221,7 +219,7 @@ return packer.startup(function(use)
                 -- refer to the configuration section below
             }
         end
-    }   
+    }
 
     -- Surround things faster
     use({

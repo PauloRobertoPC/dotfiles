@@ -9,7 +9,7 @@ local servers = {
     'texlab',
     'pyright',
     'rust_analyzer',
-    'sumneko_lua'
+    'lua_ls'
 }
 require("mason").setup()
 require("mason-lspconfig").setup {
