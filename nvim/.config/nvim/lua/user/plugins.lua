@@ -69,7 +69,6 @@ return packer.startup(function(use)
         "simrat39/symbols-outline.nvim",
         "ray-x/lsp_signature.nvim",      -- Need configuration in lsp-config
         "mfussenegger/nvim-jdtls",
-        "j-hui/fidget.nvim",
     }
     use({
         "utilyre/barbecue.nvim",
@@ -101,8 +100,6 @@ return packer.startup(function(use)
 
     -- Colorschemes
     use { "catppuccin/nvim", as = "catppuccin" }
-    use "EdenEast/nightfox.nvim"
-    use "loctvl842/monokai-pro.nvim"
 
     -- Tree Explorer
     use {

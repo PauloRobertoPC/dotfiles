@@ -17,7 +17,6 @@ require("mason-lspconfig").setup {
     automatic_installation = true,
 }
 require("symbols-outline").setup()
-require("fidget").setup()
 
 local options = function(desc)
     local opts = { noremap=true, silent=true, desc = desc }
@@ -37,7 +36,7 @@ local on_attach = function(client, bufnr)
 
     -- My configurations
     require "lsp_signature".on_attach()
-    print("LSP has started")
+    -- print("LSP has started")
 
     -- Enable completion triggered by <c-x><c-o>
     vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')

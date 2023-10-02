@@ -5,7 +5,7 @@ end
 
 configs.setup {
     ensure_installed = {"c", "cpp", "rust", "python", "java", "javascript", "lua", "html", "css", "latex"}, -- one of "all", "maintained" (parsers with maintainers), or a list of languages
-    sync_install = false, -- install languages synchronously (only applied to `ensure_installed`)
+    sync_install = true, -- install languages synchronously (only applied to `ensure_installed`)
     ignore_install = { "" }, -- List of parsers to ignore installing
     autopairs = {
         enable = true,
@@ -19,14 +19,6 @@ configs.setup {
     context_commentstring = {
         enable = true,
         enable_autocmd = false,
-    },
-    rainbow = {
-        enable = true,
-        -- disable = { "jsx", "cpp" }, list of languages you want to disable the plugin for
-        extended_mode = true, -- Also highlight non-bracket delimiters like html tags, boolean or table: lang -> boolean
-        max_file_lines = nil, -- Do not enable for files with more than n lines, int
-        -- colors = {}, -- table of hex strings
-        -- termcolors = {} -- table of colour name strings
     },
     incremental_selection = {
         enable = true,
@@ -83,13 +75,42 @@ configs.setup {
     },
 }
 
+
+
 -- indent-blankline configuration
 vim.opt.list = true
 -- vim.opt.listchars:append "space:⋅"
 -- vim.opt.listchars:append "eol:↴"
 
-require("indent_blankline").setup {
-    space_char_blankline = " ",
-    show_current_context = true,
-    show_current_context_start = true,
+require("ibl").setup()
+
+-- require("ibl").setup() {
+--     space_char_blankline = " ",
+--     show_current_context = true,
+--     show_current_context_start = true,
+-- }
+
+
+
+-- rainbow delimiters configuration
+local rainbow_delimiters = require 'rainbow-delimiters'
+
+vim.g.rainbow_delimiters = {
+    strategy = {
+        [''] = rainbow_delimiters.strategy['global'],
+        vim = rainbow_delimiters.strategy['local'],
+    },
+    query = {
+        [''] = 'rainbow-delimiters',
+        lua = 'rainbow-blocks',
+    },
+    highlight = {
+        'RainbowDelimiterRed',
+        'RainbowDelimiterYellow',
+        'RainbowDelimiterBlue',
+        'RainbowDelimiterOrange',
+        'RainbowDelimiterGreen',
+        'RainbowDelimiterViolet',
+        'RainbowDelimiterCyan',
+    },
 }

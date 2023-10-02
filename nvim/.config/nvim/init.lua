@@ -1,13 +1,12 @@
-require "user.plugins"
-require('impatient')
+-- require "user.plugins"
+require "user.lazy"
+require "user.colorscheme"
 vim.notify = require("notify")
 require "user.keymaps"
 require "user.options"
-require "user.colorscheme"
 require "user.whichkey"
 require "user.treesitter"
 require "user.better_escape"
-require "user.lualine"
 require "user.neoscroll"
 require "user.cmp"
 require "user.lsp_config"
