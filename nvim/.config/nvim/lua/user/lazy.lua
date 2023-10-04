@@ -53,13 +53,13 @@ require('lazy').setup({
 
 
     -- Colorschemes
-    { "catppuccin/nvim", as = "catppuccin" },
+    { "catppuccin/nvim", name = "catppuccin", priority = 1000, },
+    -- Status Line
+    { 'nvim-lualine/lualine.nvim', dependencies = { 'kyazdani42/nvim-web-devicons'}, after={"catppuccin/nvim"}, event = 'VeryLazy', opts = true, },
 
     -- Tree Explorer
     { "nvim-neo-tree/neo-tree.nvim", branch = "v3.x", dependencies = { "nvim-lua/plenary.nvim", "MunifTanjim/nui.nvim" } },
 
-    -- Status Line
-    { 'nvim-lualine/lualine.nvim', dependencies = { 'kyazdani42/nvim-web-devicons'}, after={"catppuccin/nvim"} },
 
     -- -- Rainbow Parentheses
     { "HiPhish/rainbow-delimiters.nvim" },
@@ -125,5 +125,12 @@ require('lazy').setup({
             require("nvim-surround").setup({
             })
         end
+    },
+
+    -- Pre Layout
+    {
+        "folke/edgy.nvim",
+        event = "VeryLazy",
+        opts = {}
     }
 }, {})

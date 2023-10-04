@@ -1,4 +1,3 @@
--- require("monokai-pro").setup()
 require("catppuccin").setup()
 
 -- ALERT: also change the theme in lualine
@@ -12,9 +11,6 @@ require('lualine').setup {
         theme = colorscheme
     }
 }
-
--- ALERT: also change the theme in lualine
--- local colorscheme = "monokai-pro"
 
 if not status_ok then
     vim.notify("colorscheme " .. colorscheme .. " not found!")

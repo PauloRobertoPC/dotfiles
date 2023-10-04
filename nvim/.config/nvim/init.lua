@@ -15,3 +15,5 @@ require "user.bufferline"
 require "user.neotree"
 require "user.dap_servers"
 require "user.dap_ui"
+require "user.git"
+
