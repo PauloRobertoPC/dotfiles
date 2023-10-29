@@ -87,40 +87,23 @@ local optsv = {
     nowait = true, -- use `nowait` when creating keymaps
 }
 
-
 local mappings = {
     ["b"] = { "<cmd> BufferLinePick<cr>", "Buffer Picker" },
-    p = {
-        name = "Packer",
-        c = { "<cmd>PackerCompile<cr>", "Compile" },
-        i = { "<cmd>PackerInstall<cr>", "Install" },
-        s = { "<cmd>PackerSync<cr>", "Sync" },
-        S = { "<cmd>PackerStatus<cr>", "Status" },
-        u = { "<cmd>PackerUpdate<cr>", "Update" },
+    g = {
+        name = "Git",
+        j = { "<cmd>lua require 'gitsigns'.next_hunk()<cr>", "Next Hunk" },
+        k = { "<cmd>lua require 'gitsigns'.prev_hunk()<cr>", "Previous Hunk" },
+        l = { "<cmd>lua require 'gitsigns'.blame_line()<cr>", "B[l]ame" },
+        p = { "<cmd>lua require 'gitsigns'.preview_hunk()<cr>", "[p]review Hunk" },
+        r = { "<cmd>lua require 'gitsigns'.reset_hunk()<cr>", "[r]eset Hunk" },
+        R = { "<cmd>lua require 'gitsigns'.reset_buffer()<cr>", "[R]eset Buffer" },
+        s = { "<cmd>lua require 'gitsigns'.stage_hunk()<cr>", "[s]tage Hunk" },
+        u = { "<cmd>lua require 'gitsigns'.undo_stage_hunk()<cr>", "[u]ndo Stage Hunk", },
+        f = { "<cmd>Telescope git_status<cr>", "Open changed [f]ile" },
+        b = { "<cmd>Telescope git_branches<cr>", "Checkout [b]ranch" },
+        c = { "<cmd>Telescope git_commits<cr>", " Checkout [c]ommit" },
+        d = { "<cmd>Gitsigns diffthis HEAD<cr>", "[d]iff", },
     },
-    -- g = {
-    --     name = "Git",
-    --     g = { "<cmd>lua _LAZYGIT_TOGGLE()<CR>", "Lazygit" },
-    --     j = { "<cmd>lua require 'gitsigns'.next_hunk()<cr>", "Next Hunk" },
-    --     k = { "<cmd>lua require 'gitsigns'.prev_hunk()<cr>", "Prev Hunk" },
-    --     l = { "<cmd>lua require 'gitsigns'.blame_line()<cr>", "Blame" },
-    --     p = { "<cmd>lua require 'gitsigns'.preview_hunk()<cr>", "Preview Hunk" },
-    --     r = { "<cmd>lua require 'gitsigns'.reset_hunk()<cr>", "Reset Hunk" },
-    --     R = { "<cmd>lua require 'gitsigns'.reset_buffer()<cr>", "Reset Buffer" },
-    --     s = { "<cmd>lua require 'gitsigns'.stage_hunk()<cr>", "Stage Hunk" },
-    --     u = {
-    --         "<cmd>lua require 'gitsigns'.undo_stage_hunk()<cr>",
-    --         "Undo Stage Hunk",
-    --     },
-    --     o = { "<cmd>Telescope git_status<cr>", "Open changed file" },
-    --     b = { "<cmd>Telescope git_branches<cr>", "Checkout branch" },
-    --     c = { "<cmd>Telescope git_commits<cr>", "Checkout commit" },
-    --     d = {
-    --         "<cmd>Gitsigns diffthis HEAD<cr>",
-    --         "Diff",
-    --     },
-    -- },
-    -- All setted in 'lsp_config.lua' file
     l = { 
         name = "LSP",
         a = { "<cmd>lua vim.lsp.buf.code_action()<CR>", "Code [A]ction"},
