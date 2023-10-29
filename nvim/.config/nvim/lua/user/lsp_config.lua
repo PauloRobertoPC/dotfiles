@@ -6,10 +6,7 @@ local servers = {
     'html',
     'jdtls',
     -- 'tsserver',
-    'texlab',
     'pyright',
-    'rust_analyzer',
-    'lua_ls'
 }
 require("mason").setup()
 require("mason-lspconfig").setup {
@@ -43,17 +40,17 @@ local on_attach = function(client, bufnr)
 
     -- Mappings.
     -- See `:help vim.lsp.*` for documentation on any of the below functions
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>la', '<cmd>lua vim.lsp.buf.code_action()<CR>', options("Code [a]ction"))
-
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>lD', '<cmd>lua vim.lsp.buf.declaration()<CR>', options("Go to [D]eclaration"))
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>ld', '<cmd>lua vim.lsp.buf.definition()<CR>', options("Go to [d]efinition"))
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>li', '<cmd>lua vim.lsp.buf.implementation()<CR>', options("Go to [i]mplementation"))
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>lt', '<cmd>lua vim.lsp.buf.type_definition()<CR>', options("Go to [t]ype Definition"))
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>lr', '<cmd>lua vim.lsp.buf.references()<CR>', options("Go to [r]eferences"))
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>lR', '<cmd>lua vim.lsp.buf.rename()<CR>', options("[R]ename"))
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>lh', '<cmd>lua vim.lsp.buf.hover()<CR>', options("[h]over Documentation"))
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>lH', '<cmd>lua vim.lsp.buf.signature_help()<CR>', options("[H]over Signature Documentation"))
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>lf', '<cmd>lua vim.lsp.buf.formatting()<CR>', options("[f]ormat"))
+    -- vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>la', '<cmd>lua vim.lsp.buf.code_action()<CR>', options("Code [a]ction"))
+    --
+    -- vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>lD', '<cmd>lua vim.lsp.buf.declaration()<CR>', options("Go to [D]eclaration"))
+    -- vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>ld', '<cmd>lua vim.lsp.buf.definition()<CR>', options("Go to [d]efinition"))
+    -- vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>li', '<cmd>lua vim.lsp.buf.implementation()<CR>', options("Go to [i]mplementation"))
+    -- vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>lt', '<cmd>lua vim.lsp.buf.type_definition()<CR>', options("Go to [t]ype Definition"))
+    -- vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>lr', '<cmd>lua vim.lsp.buf.references()<CR>', options("Go to [r]eferences"))
+    -- vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>lR', '<cmd>lua vim.lsp.buf.rename()<CR>', options("[R]ename"))
+    -- vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>lh', '<cmd>lua vim.lsp.buf.hover()<CR>', options("[h]over Documentation"))
+    -- vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>lH', '<cmd>lua vim.lsp.buf.signature_help()<CR>', options("[H]over Signature Documentation"))
+    -- vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>lf', '<cmd>lua vim.lsp.buf.formatting()<CR>', options("[f]ormat"))
 
     -- vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', options("TESTE"))
     -- vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', options("TESTE"))
@@ -75,6 +72,16 @@ for _, lsp in pairs(servers) do
         }
     }
 end
+
+-- dartls settings
+require('lspconfig')['dartls'].setup {
+    on_attach = on_attach,
+    capabilities = capabilities,
+    flags = {
+        -- This will be the default in neovim 0.7+
+        debounce_text_changes = 150,
+    }
+}
 
 -- example in how the serrver is attached
 

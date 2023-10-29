@@ -1,7 +1,7 @@
 -- Main options
 vim.opt.shiftwidth = 4                          -- the number of spaces inserted for each indentation
-vim.opt.tabstop = 4                             -- insert 2 spaces for a tab
-vim.opt.numberwidth = 4                         -- set number column width to 2 {default 4}
+vim.opt.tabstop = 4                             -- insert 4 spaces for a tab
+vim.opt.numberwidth = 2                         -- set number column width to 2 {default 4}
 vim.opt.expandtab = true                        -- convert tabs to spaces
 vim.opt.mouse = "a"                             -- allow the mouse to be used in neovim
 vim.opt.hlsearch = true                         -- highlight all matches on previous search pattern

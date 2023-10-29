@@ -121,7 +121,19 @@ local mappings = {
     --     },
     -- },
     -- All setted in 'lsp_config.lua' file
-    l = { name = "LSP",},
+    l = { 
+        name = "LSP",
+        a = { "<cmd>lua vim.lsp.buf.code_action()<CR>", "Code [A]ction"},
+        D = { "<cmd>lua vim.lsp.buf.declaration()<CR>", "Go to [D]eclaration"},
+        d = { "<cmd>lua vim.lsp.buf.definition()<CR>", "Go to [d]efinition"},
+        i = { "<cmd>lua vim.lsp.buf.implementation()<CR>", "Go to [i]mplementation"},
+        t = { "<cmd>lua vim.lsp.buf.type_definition()<CR>", "Go to [t]ype definition"},
+        r = { "<cmd>lua vim.lsp.buf.references()<CR>", "Go to [r]eferences"},
+        R = { "<cmd>lua vim.lsp.buf.rename()<CR>", "[R]ename"},
+        h = { "<cmd>lua vim.lsp.buf.hover()<CR>", "[h]over Documentation"},
+        H = { "<cmd>lua vim.lsp.buf.signature_help()<CR>", "[H]over Signature Documentation"},
+        f = { "<cmd>lua vim.lsp.buf.formatting()<CR>", "[f]ormat"},
+    },
     -- All setted in 'treesitter.lua' file
     t = { name = "Treesitter",},
     f = {
