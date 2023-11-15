@@ -76,6 +76,19 @@ require('lazy').setup({
     -- Blank Indentation Line
     -- configuration of this plugin is in treesitter
     { "lukas-reineke/indent-blankline.nvim", main = "ibl"},
+    {
+        "shellRaining/hlchunk.nvim",
+        event = { "UIEnter" },
+        config = function()
+            require("hlchunk").setup({
+                indent = {
+                    chars = { "│", "¦", "┆", "┊", }, -- more code can be found in https://unicodeplus.com/
+                    -- style = { "#8B00FF",},
+                },
+                blank = { enable = false,},
+            })
+        end
+    },
 
     -- Smooth Scroll
     { 'karb94/neoscroll.nvim' },
