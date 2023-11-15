@@ -51,15 +51,18 @@ require('lazy').setup({
     { 'nvim-treesitter/playground' },
     { 'nvim-treesitter/nvim-treesitter-textobjects' },
 
+    -- Toggleterm
+    {'akinsho/toggleterm.nvim', version = "*", config = true},
+
 
     -- Colorschemes
     { "catppuccin/nvim", name = "catppuccin", priority = 1000, },
+
     -- Status Line
     { 'nvim-lualine/lualine.nvim', dependencies = { 'kyazdani42/nvim-web-devicons'}, after={"catppuccin/nvim"}, event = 'VeryLazy', opts = true, },
 
     -- Tree Explorer
     { "nvim-neo-tree/neo-tree.nvim", branch = "v3.x", dependencies = { "nvim-lua/plenary.nvim", "MunifTanjim/nui.nvim" } },
-
 
     -- -- Rainbow Parentheses
     { "HiPhish/rainbow-delimiters.nvim" },
@@ -85,11 +88,7 @@ require('lazy').setup({
             vim.o.timeout = true
             vim.o.timeoutlen = 300
         end,
-        opts = {
-            -- your configuration comes here
-            -- or leave it empty to use the default settings
-            -- refer to the configuration section below
-        }
+        opts = {}
     },
 
     -- Comments

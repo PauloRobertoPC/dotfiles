@@ -17,3 +17,5 @@ require "user.dap_servers"
 require "user.dap_ui"
 require "user.git"
 require("flutter-tools").setup {}
+require "user.toggleterm"
+require "user.autocmd"

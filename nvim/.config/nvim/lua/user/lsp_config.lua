@@ -3,7 +3,7 @@ local servers = {
     'cssls',
     'emmet_ls',
     'eslint',
-    'html',
+    -- 'html',
     'jdtls',
     -- 'tsserver',
     'pyright',
@@ -20,12 +20,6 @@ local options = function(desc)
     return opts
 end
 
--- Mappings.
--- See `:help vim.diagnostic.*` for documentation on any of the below functions
-vim.api.nvim_set_keymap('n', '<space>ls', '<cmd>lua vim.diagnostic.open_float()<CR>', options("[s]how Diagnostic"))
-vim.api.nvim_set_keymap('n', '<space>lb', '<cmd>lua vim.diagnostic.goto_prev()<CR>', options("Previous(b) Diagnostic"))
-vim.api.nvim_set_keymap('n', '<space>lw', '<cmd>lua vim.diagnostic.goto_next()<CR>', options("Next(w) Diagnostic"))
-vim.api.nvim_set_keymap('n', '<space>ll', '<cmd>lua vim.diagnostic.setloclist()<CR>', options("Diagnostics [l]ist"))
 
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
