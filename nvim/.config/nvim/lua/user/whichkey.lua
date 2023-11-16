@@ -153,8 +153,7 @@ local mappings = {
         m = { "<cmd>MarkdownPreviewToggle<cr>", "[m]arkdown" },
         o = { "<cmd>SymbolsOutline<cr>", "[o]utline" },
         p = { "<cmd>TSPlaygroundToggle<cr>", "treesitter [p]layground" },
-        t = {"<cmd>ToggleTerm direction=float<cr>", "[t]erminal"},
-        T = {"<cmd>TodoTelescope<cr>", "[T]odo telescope"},
+        t = {"<cmd>TodoTelescope<cr>", "[t]odo telescope"},
     },
     c = {
         name = "Colors",

@@ -52,7 +52,25 @@ require('lazy').setup({
     { 'nvim-treesitter/nvim-treesitter-textobjects' },
 
     -- Toggleterm
-    {'akinsho/toggleterm.nvim', version = "*", config = true},
+    {'akinsho/toggleterm.nvim', version = "*", 
+        config = function()
+            require("toggleterm").setup({
+                size = 20,
+                hide_numbers = true,
+                open_mapping = [[<c-\>]],
+                shade_filetypes = {},
+                shade_terminals = false,
+                shading_factor = 0.1, -- the degree by which to darken to terminal colour, default: 1 for dark backgrounds, 3 for light
+                start_in_insert = true,
+                persist_size = true,
+                direction = "float",
+                close_on_exit = true,
+                float_opts = {
+                    border = { "┏", "━", "┓", "┃", "┛","━", "┗", "┃" },
+                }
+            })
+        end;
+    },
 
 
     -- Colorschemes
