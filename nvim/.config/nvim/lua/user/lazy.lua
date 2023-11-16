@@ -57,6 +57,7 @@ require('lazy').setup({
 
     -- Colorschemes
     { "catppuccin/nvim", name = "catppuccin", priority = 1000, },
+    { 'projekt0n/github-nvim-theme' },
 
     -- Status Line
     { 'nvim-lualine/lualine.nvim', dependencies = { 'kyazdani42/nvim-web-devicons'}, after={"catppuccin/nvim"}, event = 'VeryLazy', opts = true, },
@@ -134,26 +135,7 @@ require('lazy').setup({
         version = "*",
         event = "VeryLazy",
         config = function()
-            require("nvim-surround").setup({
-            })
+            require("nvim-surround").setup({})
         end
-    },
-
-    -- Pre Layout
-    {
-        "folke/edgy.nvim",
-        event = "VeryLazy",
-        opts = {}
-    },
-
-    -- Flutter Development
-    {
-        'akinsho/flutter-tools.nvim',
-        lazy = false,
-        dependencies = {
-            'nvim-lua/plenary.nvim',
-            'stevearc/dressing.nvim', -- optional for vim.ui.select
-        },
-        config = true,
     },
 }, {})

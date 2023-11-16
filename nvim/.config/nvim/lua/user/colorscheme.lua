@@ -1,8 +1,10 @@
 require("catppuccin").setup()
+require('github-theme').setup({})
 
--- ALERT: also change the theme in lualine
-vim.g.catppuccin_flavour = "mocha" -- latte, frappe, macchiato, mocha
-local colorscheme = "catppuccin"
+-- vim.g.catppuccin_flavour = "mocha" -- latte, frappe, macchiato, mocha
+-- local colorscheme = "catppuccin"
+
+local colorscheme = "github_dark_high_contrast" -- github_dark, github_dark_dimmed, github_dark_high_contrast, github_dark_colorblind, github_dark_tritanopia, github_light, github_light_high_contrast, github_light_colorblind, github_light_tritanopia
 
 local status_ok, _ = pcall(vim.cmd, "colorscheme " .. colorscheme)
 
