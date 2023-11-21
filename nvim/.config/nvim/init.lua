@@ -1,7 +1,5 @@
--- require "user.plugins"
 require "user.lazy"
 require "user.colorscheme"
-vim.notify = require("notify")
 require "user.keymaps"
 require "user.options"
 require "user.whichkey"

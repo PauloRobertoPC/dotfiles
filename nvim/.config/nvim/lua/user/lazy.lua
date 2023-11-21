@@ -87,9 +87,6 @@ require('lazy').setup({
     -- -- Rainbow Parentheses
     { "HiPhish/rainbow-delimiters.nvim" },
 
-    -- Fancy Notifications
-    { 'rcarriga/nvim-notify', opts = {}},
-
     -- Bufferline
     {'akinsho/bufferline.nvim', version = "*"},
 
