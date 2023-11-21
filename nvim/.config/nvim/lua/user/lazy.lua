@@ -76,6 +76,7 @@ require('lazy').setup({
     -- Colorschemes
     { "catppuccin/nvim", name = "catppuccin", priority = 1000, },
     { 'projekt0n/github-nvim-theme' },
+    { 'maxmx03/fluoromachine.nvim' },
 
     -- Status Line
     { 'nvim-lualine/lualine.nvim', dependencies = { 'kyazdani42/nvim-web-devicons'}, after={"catppuccin/nvim"}, event = 'VeryLazy', opts = true, },
