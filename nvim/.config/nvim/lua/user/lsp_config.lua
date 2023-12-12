@@ -3,6 +3,8 @@ local servers = {
     'lua_ls',
     'jdtls',
     'pyright',
+    'emmet_ls',
+    'cssls',
 }
 require("mason").setup()
 require("mason-lspconfig").setup {

@@ -6,6 +6,7 @@ fi
 export ZSH="$HOME/.oh-my-zsh"
 export TERM=xterm-256color
 export PATH=/home/pinto/.local/bin:$PATH
+export PATH=/home/pinrot/.local/share/gem/ruby/3.0.0/bin:$PATH
 
 ZSH_THEME="powerlevel10k/powerlevel10k"
 
