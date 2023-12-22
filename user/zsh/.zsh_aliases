@@ -1,0 +1,5 @@
+alias ls='lsd'
+
+alias top="btop"
+
+alias cat="bat"
