@@ -3,6 +3,8 @@
 {
 	imports = [
 		./user/dev/dev.nix
+		./user/kitty/kitty.nix
+		./user/tmux/tmux.nix
 		./user/zsh/zsh.nix
 		./user/nvim/nvim.nix
 	];
