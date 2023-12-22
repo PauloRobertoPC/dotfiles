@@ -13,6 +13,7 @@
 		./user/tmux/tmux.nix
 		./user/zsh/zsh.nix
 		./user/nvim/nvim.nix
+		./user/virtualization/virtualization.nix
 	];
 
 	home.username = "pinto";
