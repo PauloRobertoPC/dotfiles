@@ -1,6 +1,12 @@
 { config, pkgs, ... }:
-
 {
+    nixpkgs = {
+        config = {
+            allowUnfree = true;
+            allowUnfreePredicate = (_: true);
+        };
+    };
+
 	imports = [
 		./user/dev/dev.nix
 		./user/kitty/kitty.nix
@@ -15,7 +21,7 @@
 	home.stateVersion = "23.11"; # Please read the comment before changing.
 
 	home.packages = with pkgs; [
-		pkgs.hello
+        ticktick
 	];
 
 	home.file = {
