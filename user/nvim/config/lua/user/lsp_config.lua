@@ -1,5 +1,4 @@
 local servers = {
-    'clangd',
     'lua_ls',
     'jdtls',
     'pyright',
@@ -50,6 +49,17 @@ end
 require('lspconfig')['dartls'].setup {
     on_attach = on_attach,
     capabilities = capabilities,
+    flags = {
+        -- This will be the default in neovim 0.7+
+        debounce_text_changes = 150,
+    }
+}
+
+local home = os.getenv("HOME")
+require('lspconfig')['clangd'].setup {
+    on_attach = on_attach,
+    capabilities = capabilities,
+    cmd = { home .. '/.nix-profile/bin/clangd' },
     flags = {
         -- This will be the default in neovim 0.7+
         debounce_text_changes = 150,
