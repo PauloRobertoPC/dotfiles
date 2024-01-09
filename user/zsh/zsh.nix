@@ -5,6 +5,7 @@ in
 {
 	home.packages = with pkgs; [
         zsh
+        zsh-nix-shell
         lsd
         btop
         bat

@@ -4,6 +4,7 @@ local servers = {
     'pyright',
     'emmet_ls',
     'cssls',
+    'rnix',
 }
 require("mason").setup()
 require("mason-lspconfig").setup {
@@ -55,6 +56,7 @@ require('lspconfig')['dartls'].setup {
     }
 }
 
+-- clangd settings
 local home = os.getenv("HOME")
 require('lspconfig')['clangd'].setup {
     on_attach = on_attach,

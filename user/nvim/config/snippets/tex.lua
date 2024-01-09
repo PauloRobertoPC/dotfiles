@@ -214,7 +214,7 @@ local teorema = s("teorema",
 )
 table.insert(snippets, teorema)
 
-local definicao = s("definicao", 
+local definition = s("definition", 
     fmt([[ 
         \begin{{definition}}
         
@@ -222,18 +222,7 @@ local definicao = s("definicao",
 ]], {}
     )
 )
-table.insert(snippets, definicao)
-
-local prova = s("prova", 
-    fmt([[ 
-        \begin{{proof}}
-        
-        \end{{proof}}
-]], {}
-    )
-)
-table.insert(snippets, prova)
-
+table.insert(snippets, definition)
 
 local mod = s("mod", 
     fmt([[ 
@@ -261,6 +250,25 @@ local legendre = s("legendre",
     )
 )
 table.insert(snippets, legendre)
+
+local proof = s("proof", 
+    fmt([[ 
+        \begin{{proof}}
+            {}
+            \begin{{enumerate}}
+                \item {}
+                \item {}
+            \end{{enumerate}}
+        \end{{proof}}
+]], 
+        {
+            i(1, "Declarations"),
+            i(2, "Step 1"),
+            i(3, "Step 2"),
+        }
+    )
+)
+table.insert(snippets, proof)
 
 -- End Refactoring --
 

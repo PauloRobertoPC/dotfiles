@@ -19,6 +19,9 @@
   users.defaultUserShell = pkgs.zsh;
   programs.zsh.enable = true;
 
+  
+  services.xserver.windowManager.dwm.enable = true;
+
   networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 

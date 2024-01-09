@@ -14,6 +14,7 @@
 		./user/zsh/zsh.nix
 		./user/nvim/nvim.nix
 		./user/virtualization/virtualization.nix
+		./user/dwm/dwm.nix
 	];
 
 	home.username = "pinto";
@@ -23,6 +24,8 @@
 
 	home.packages = with pkgs; [
         ticktick
+        zathura
+        texliveFull
 	];
 
 	home.file = {

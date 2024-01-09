@@ -23,6 +23,7 @@ in
         ripgrep
         gnugrep
         clang-tools
+        cargo
 	];
 
 	home.file.".config/nvim/".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/user/nvim/config";
