@@ -14,7 +14,7 @@
 		./user/zsh/zsh.nix
 		./user/nvim/nvim.nix
 		./user/virtualization/virtualization.nix
-		./user/dwm/dwm.nix
+		./user/i3/i3.nix
 	];
 
 	home.username = "pinto";
