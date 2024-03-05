@@ -19,9 +19,14 @@
   users.defaultUserShell = pkgs.zsh;
   programs.zsh.enable = true;
 
-  # Using i3
-  services.xserver.windowManager.i3.enable = true;
+  # Using awesome
+  services.xserver.windowManager.awesome.enable = true;
+  
+  # blueman
   services.blueman.enable = true;
+
+  # Using mpd
+  services.mpd.enable = true;
 
   networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -117,6 +122,7 @@
   	google-chrome
     kitty
 	megasync
+    mpd
     neofetch
 	peek
     ripgrep

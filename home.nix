@@ -14,7 +14,7 @@
 		./user/zsh/zsh.nix
 		./user/nvim/nvim.nix
 		./user/virtualization/virtualization.nix
-		./user/i3/i3.nix
+		./user/awesome/awesome.nix
 	];
 
 	home.username = "pinto";
@@ -23,8 +23,8 @@
 	home.stateVersion = "23.11"; # Please read the comment before changing.
 
 	home.packages = with pkgs; [
+        libsForQt5.okular
         ticktick
-        zathura
         texliveFull
 	];
 
