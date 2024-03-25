@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, pkgs-unstable, userSettings, ... }:
 {
     nixpkgs = {
         config = {
@@ -17,16 +17,23 @@
 		./user/awesome/awesome.nix
 	];
 
-	home.username = "pinto";
-	home.homeDirectory = "/home/pinto";
+	home.username = userSettings.username;
+    home.homeDirectory = "/home/"+userSettings.username;
 
 	home.stateVersion = "23.11"; # Please read the comment before changing.
 
-	home.packages = with pkgs; [
-        libsForQt5.okular
-        ticktick
-        texliveFull
-	];
+	home.packages = (
+        with pkgs; [
+            libsForQt5.okular
+            texliveFull
+            ticktick
+        ]
+    )
+    ++
+    (
+        with pkgs-unstable; [
+        ]
+    );
 
 	home.file = {
 		#"test.conf".source = ./test.conf;

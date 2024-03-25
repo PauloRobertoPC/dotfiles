@@ -516,9 +516,9 @@ local monitor1 = "eDP-1"
 local monitor2 = "DP-1"
 awful.spawn("xrandr --output " .. monitor2 .. " --auto --above " .. monitor1)
 
-awful.spawn("nm-applet")
+awful.spawn("betterlockscreen -u " .. home .. "/.config/awesome/assets/img/colorfulAI.png")
 awful.spawn("blueman-applet")
 awful.spawn("megasync")
+awful.spawn("nm-applet")
 awful.spawn("ticktick")
-awful.spawn("betterlockscreen -u " .. home .. "/.config/awesome/assets/img/colorfulAI.png")
 -- awful.spawn("picom --config " .. home .. "/.config/picom/picom.conf --experimental-backends")
