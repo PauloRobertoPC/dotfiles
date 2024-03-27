@@ -283,10 +283,10 @@ globalkeys = gears.table.join(
     -- awful.key({ modkey }, "r", function () awful.screen.focused().mypromptbox:run() end, {description = "run prompt", group = "launcher"}),
 
     -- Screen Movements
-    awful.key({ altkey }, "h", function () awful.screen.focus_bydirection("left") end, {description = "focus screen left", group = "SCREEN MOVEMENTS"}),
-    awful.key({ altkey }, "j", function () awful.screen.focus_bydirection("down") end, {description = "focus screen down", group = "SCREEN MOVEMENTS"}),
-    awful.key({ altkey }, "k", function () awful.screen.focus_bydirection("up") end, {description = "focus screen up", group = "SCREEN MOVEMENTS"}),
-    awful.key({ altkey }, "l", function () awful.screen.focus_bydirection("right") end, {description = "focus screen right", group = "SCREEN MOVEMENTS"}),
+    awful.key({ altkey, "Shift" }, "h", function () awful.screen.focus_bydirection("left") end, {description = "focus screen left", group = "SCREEN MOVEMENTS"}),
+    awful.key({ altkey, "Shift" }, "j", function () awful.screen.focus_bydirection("down") end, {description = "focus screen down", group = "SCREEN MOVEMENTS"}),
+    awful.key({ altkey, "Shift" }, "k", function () awful.screen.focus_bydirection("up") end, {description = "focus screen up", group = "SCREEN MOVEMENTS"}),
+    awful.key({ altkey, "Shift" }, "l", function () awful.screen.focus_bydirection("right") end, {description = "focus screen right", group = "SCREEN MOVEMENTS"}),
 
     -- Client Movements
     awful.key({ modkey }, "h", function () awful.client.focus.bydirection("left") end, {description = "focus client left", group = "CLIENT MOVEMENTS"}),
@@ -438,6 +438,17 @@ awful.rules.rules = {
             type = { "normal", "dialog" }
         }, 
         properties = { titlebars_enabled = false }
+    },
+    
+    { 
+        rule_any = {
+            class = {
+                "evince",
+                "Evince",
+                "obsidian",
+            },
+        }, 
+        properties = { maximized = false }
     },
 
     { 

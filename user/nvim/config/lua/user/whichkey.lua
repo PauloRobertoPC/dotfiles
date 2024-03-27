@@ -147,6 +147,7 @@ local mappings = {
     },
     o = {
         name = "Open",
+        b = {"<cmd>ObsidianOpen<cr>", "o[b]sidian"},
         d = {"<cmd>Telescope diagnostics<cr>", "[d]iagnostics"},
         e = { "<cmd>Neotree toggle<cr>", "[e]xplorer tree" },
         l = { "<cmd>VimtexCompile<cr>", "[l]atex" },

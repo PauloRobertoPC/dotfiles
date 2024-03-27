@@ -40,7 +40,7 @@ require('lazy').setup({
 
     -- DAP
     { 'mfussenegger/nvim-dap' },
-    { "rcarriga/nvim-dap-ui", dependencies = {"mfussenegger/nvim-dap"} },
+    { "rcarriga/nvim-dap-ui", dependencies = {"mfussenegger/nvim-dap", "nvim-neotest/nvim-nio"} },
     { 'mfussenegger/nvim-dap-python' },
 
     -- FZF
@@ -50,28 +50,6 @@ require('lazy').setup({
     { "nvim-treesitter/nvim-treesitter" },
     { 'nvim-treesitter/playground' },
     { 'nvim-treesitter/nvim-treesitter-textobjects' },
-
-    -- Toggleterm
-    {'akinsho/toggleterm.nvim', version = "*", 
-        config = function()
-            require("toggleterm").setup({
-                size = 20,
-                hide_numbers = true,
-                open_mapping = [[<c-\>]],
-                shade_filetypes = {},
-                shade_terminals = false,
-                shading_factor = 0.1, -- the degree by which to darken to terminal colour, default: 1 for dark backgrounds, 3 for light
-                start_in_insert = true,
-                persist_size = true,
-                direction = "float",
-                close_on_exit = true,
-                float_opts = {
-                    border = { "┏", "━", "┓", "┃", "┛","━", "┗", "┃" },
-                }
-            })
-        end;
-    },
-
 
     -- Colorschemes
     { "catppuccin/nvim", name = "catppuccin", priority = 1000, },
@@ -140,18 +118,26 @@ require('lazy').setup({
 
     -- Git
     { 'lewis6991/gitsigns.nvim', opts = {} },
-    { 'TimUntersberger/neogit', opts = {} },
 
     -- See and Pick colors in neovim
     { "uga-rosa/ccc.nvim" },
 
-    -- Surround Text
+    -- Obsidian
     {
-        "kylechui/nvim-surround",
+        "epwalsh/obsidian.nvim",
         version = "*",
-        event = "VeryLazy",
-        config = function()
-            require("nvim-surround").setup({})
-        end
+        lazy = true,
+        ft = "markdown",
+        dependencies = {
+            "nvim-lua/plenary.nvim",
+        },
+        opts = {
+            workspaces = {
+                {
+                name = "my-vault",
+                path = "~/Documents/Obsidian",
+                },
+            },
+        },
     },
 }, {})
