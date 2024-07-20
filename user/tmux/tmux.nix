@@ -8,5 +8,6 @@ in
 	];
 
 	home.file.".config/tmux/tmux.conf".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/user/tmux/tmux.conf";
+	home.file.".config/tmux/tmux-sessionizer.sh".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/user/tmux/tmux-sessionizer.sh";
 	home.file.".config/tmux/plugins".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/user/tmux/plugins";
 }

@@ -10,6 +10,7 @@
         lxc
         swtpm
         bottles
+        steam
 
         # Filesystems
         dosfstools

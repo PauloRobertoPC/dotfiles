@@ -4,7 +4,7 @@
 		./cc.nix
 		./python.nix
 	];
-    
+
 	home.packages = with pkgs; [
         dbeaver
         gpick

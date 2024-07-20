@@ -1,7 +1,7 @@
+require "user.options"
 require "user.lazy"
 require "user.colorscheme"
 require "user.keymaps"
-require "user.options"
 require "user.whichkey"
 require "user.treesitter"
 require "user.better_escape"
@@ -15,3 +15,5 @@ require "user.dap_servers"
 require "user.dap_ui"
 require "user.git"
 require "user.autocmd"
+
+vim.g.vimtex_view_general_viewer = 'zathura'

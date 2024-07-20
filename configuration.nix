@@ -22,11 +22,20 @@
     # Using awesome
     services.xserver.windowManager.awesome.enable = true;
 
+    # Using bspwm
+    services.xserver.windowManager.bspwm.enable = true;
+
     # blueman
     services.blueman.enable = true;
 
     # Using mpd
     services.mpd.enable = true;
+
+    programs.steam = {
+        enable = true;
+        remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
+        dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
+    };
 
     networking.hostName = "nixos"; # Define your hostname.
     # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -75,22 +84,26 @@
     # Enable CUPS to print documents.
     services.printing.enable = true;
 
-    # Enable sound with pipewire.
+    # Enable sound with pulseaudio.
     sound.enable = true;
-    hardware.pulseaudio.enable = false;
-    security.rtkit.enable = true;
-    services.pipewire = {
-        enable = true;
-        alsa.enable = true;
-        alsa.support32Bit = true;
-        pulse.enable = true;
-        # If you want to use JACK applications, uncomment this
-        #jack.enable = true;
+    hardware.pulseaudio.enable = true;
+    hardware.pulseaudio.support32Bit = true;
 
-        # use the example session manager (no others are packaged yet so this is enabled by default,
-        # no need to redefine it in your config for now)
-        #media-session.enable = true;
-    };
+    # Enable sound with pipewire.
+    # sound.enable = true;
+    # security.rtkit.enable = true;
+    # services.pipewire = {
+    #     enable = true;
+    #     alsa.enable = true;
+    #     alsa.support32Bit = true;
+    #     pulse.enable = true;
+    #     # If you want to use JACK applications, uncomment this
+    #     #jack.enable = true;
+    #
+    #     # use the example session manager (no others are packaged yet so this is enabled by default,
+    #     # no need to redefine it in your config for now)
+    #     #media-session.enable = true;
+    # };
 
     # Enable touchpad support (enabled default in most desktopManager).
     # services.xserver.libinput.enable = true;
@@ -119,10 +132,9 @@
             discord
             firefox
             flameshot
-            foliate
+            fzf
             git
             gh
-            gnome.gnome-tweaks
             gnugrep
             google-chrome
             kitty
@@ -149,6 +161,8 @@
 
         ]
     );
+
+    nix.settings.trusted-users = [ "root" "pinto"];
 
 # Some programs need SUID wrappers, can be configured further or are
 # started in user sessions.

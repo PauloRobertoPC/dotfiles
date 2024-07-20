@@ -1,4 +1,8 @@
-local ls = require("luasnip") --{{{
+local ls = require("luasnip")
+
+local exp_conds = require("luasnip.extras.conditions.expand")
+-- require("luasnip.extras.conditions").make_condition(function)
+
 local s = ls.s  -- snippet
 local i = ls.i  -- insert node
 local t = ls.t  -- text node
@@ -9,67 +13,27 @@ local f = ls.function_node
 local sn = ls.snippet_node
 
 local fmt = require("luasnip.extras.fmt").fmt
+local fmta = require("luasnip.extras.fmt").fmta
 local rep = require("luasnip.extras").rep
+
+local postfix = require("luasnip.extras.postfix").postfix
 
 local snippets, autosnippets = {}, {} --}}}
 
 local group = vim.api.nvim_create_augroup("Lua Snippets", { clear = true })
 local file_pattern = "*.lua"
 
-local function cs(trigger, nodes, opts) --{{{
-    local snippet = s(trigger, nodes)
-    local target_table = snippets
+-- add autosnippets
+local aa = function(snp)
+    table.insert(autosnippets, snp)
+end
 
-    local pattern = file_pattern
-    local keymaps = {}
+local as = function(snp)
+    table.insert(snippets, snp)
+end
 
-    if opts ~= nil then
-        -- check for custom pattern
-        if opts.pattern then
-            pattern = opts.pattern
-        end
+-- Start Condition --
 
-        -- if opts is a string
-        if type(opts) == "string" then
-            if opts == "auto" then
-                target_table = autosnippets
-            else
-                table.insert(keymaps, { "i", opts })
-            end
-        end
-
-        -- if opts is a table
-        if opts ~= nil and type(opts) == "table" then
-            for _, keymap in ipairs(opts) do
-                if type(keymap) == "string" then
-                    table.insert(keymaps, { "i", keymap })
-                else
-                    table.insert(keymaps, keymap)
-                end
-            end
-        end
-
-        -- set autocmd for each keymap
-        if opts ~= "auto" then
-            for _, keymap in ipairs(keymaps) do
-                vim.api.nvim_create_autocmd("BufEnter", {
-                    pattern = pattern,
-                    group = group,
-                    callback = function()
-                        vim.keymap.set(keymap[1], keymap[2], function()
-                            ls.snip_expand(snippet)
-                            end, { noremap = true, silent = true, buffer = true })
-                    end,
-                })
-            end
-        end
-    end
-
-    table.insert(target_table, snippet) -- insert snippet into appropriate table
-end --}}}
-
--- Start Refactoring --
-
--- End Refactoring --
+-- End Condition --
 
 return snippets, autosnippets

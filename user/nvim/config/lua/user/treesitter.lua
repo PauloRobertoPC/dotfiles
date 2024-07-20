@@ -78,39 +78,8 @@ configs.setup {
 
 
 -- indent-blankline configuration
-vim.opt.list = true
 -- vim.opt.listchars:append "space:."
 -- vim.opt.listchars:append "eol:↴"
 
-require("ibl").setup()
-
--- require("ibl").setup() {
---     space_char_blankline = " ",
---     show_current_context = true,
---     show_current_context_start = true,
--- }
-
-
-
--- rainbow delimiters configuration
-local rainbow_delimiters = require 'rainbow-delimiters'
-
-vim.g.rainbow_delimiters = {
-    strategy = {
-        [''] = rainbow_delimiters.strategy['global'],
-        vim = rainbow_delimiters.strategy['local'],
-    },
-    query = {
-        [''] = 'rainbow-delimiters',
-        lua = 'rainbow-blocks',
-    },
-    highlight = {
-        'RainbowDelimiterRed',
-        'RainbowDelimiterYellow',
-        'RainbowDelimiterBlue',
-        'RainbowDelimiterOrange',
-        'RainbowDelimiterGreen',
-        'RainbowDelimiterViolet',
-        'RainbowDelimiterCyan',
-    },
+require("ibl").setup {
 }

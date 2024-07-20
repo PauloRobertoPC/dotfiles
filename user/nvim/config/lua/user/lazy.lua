@@ -57,7 +57,11 @@ require('lazy').setup({
     { 'maxmx03/fluoromachine.nvim' },
 
     -- Status Line
-    { 'nvim-lualine/lualine.nvim', dependencies = { 'kyazdani42/nvim-web-devicons'}, after={"catppuccin/nvim"}, event = 'VeryLazy', opts = true, },
+    {
+        'nvim-lualine/lualine.nvim',
+        dependencies = { 'nvim-tree/nvim-web-devicons' },
+        after = "catppuccin",
+    },
 
     -- Tree Explorer
     { "nvim-neo-tree/neo-tree.nvim", branch = "v3.x", dependencies = { "nvim-lua/plenary.nvim", "MunifTanjim/nui.nvim" } },
@@ -72,17 +76,18 @@ require('lazy').setup({
     -- configuration of this plugin is in treesitter
     { "lukas-reineke/indent-blankline.nvim", main = "ibl"},
     {
-        "shellRaining/hlchunk.nvim",
-        event = { "UIEnter" },
-        config = function()
-            require("hlchunk").setup({
-                indent = {
-                    chars = { "│", "¦", "┆", "┊", }, -- more code can be found in https://unicodeplus.com/
-                    style = { "#8B00FF",},
-                },
-                blank = { enable = false,},
-            })
-        end
+      "shellRaining/hlchunk.nvim",
+      event = { "BufReadPre", "BufNewFile" },
+      config = function()
+        require("hlchunk").setup({
+            chunk = {
+                enable = true,
+                style = "#806d9c",
+                duration = 200,
+                delay = 100,
+            },
+        })
+      end
     },
 
     -- Smooth Scroll
@@ -106,13 +111,34 @@ require('lazy').setup({
     { "folke/todo-comments.nvim", dependencies = { "nvim-lua/plenary.nvim" }, opts = {} },
 
     -- Better Escape
-    { "max397574/better-escape.nvim", opts = {} },
+    {
+        "max397574/better-escape.nvim",
+        config = function()
+            require("better_escape").setup({
+                mappings = {
+                    i = {
+                        k = {
+                            k = "<Esc>",
+                            j = "<Esc>",
+                        },
+                    },
+                }
+            })
+        end,
+    },
 
     -- Latex Compiler
     { 'lervag/vimtex' },
     -- Markdown Compiler
-    { "iamcco/markdown-preview.nvim", build = "cd app && npm install" },
-
+    {
+        "iamcco/markdown-preview.nvim",
+        cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+        build = "cd app && yarn install",
+        init = function()
+            vim.g.mkdp_filetypes = { "markdown" }
+        end,
+        ft = { "markdown" },
+    },
     -- Vim + Tmux
     { 'christoomey/vim-tmux-navigator' },
 
@@ -120,7 +146,13 @@ require('lazy').setup({
     { 'lewis6991/gitsigns.nvim', opts = {} },
 
     -- See and Pick colors in neovim
-    { "uga-rosa/ccc.nvim" },
+    { 
+        "uga-rosa/ccc.nvim",
+        config = function()
+           require("ccc").setup {
+           }
+        end,
+    },
 
     -- Obsidian
     {

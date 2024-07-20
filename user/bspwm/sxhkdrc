@@ -1,0 +1,82 @@
+# Focus window
+super + {h,j,k,l}
+    bspc node -f {west,south,north,east}
+
+# Move window
+super + shift + {h,j,k,l}
+    bspc node -s {west,south,north,east}
+
+# Toggle Fullscreen
+super + f
+    bspc node -t \~fullscreen
+
+# Resize window
+super + {Left,Down,Up,Right}
+    bspc node -z {left -20 0,bottom 0 20,top 0 -20,right 20 0}
+
+# Apps
+alt + Return
+    kitty
+
+alt + {c, d, f, p, t, w}
+    {gnome-calculator, discord, nautilus, ticktick, telegram-desktop, google-chrome-stable}
+
+# App Launcher(rofi)
+alt + r
+    rofi -show drun -theme ~/.config/bspwm/rofi/style.rasi
+
+# Close window
+super + c
+    bspc node -c
+
+# Toggle Floating Mode
+super + t
+    bspc node -t \~floating
+
+# Change Workspace
+super + {1-9}
+    bspc desktop -f ^{1-9}
+super + 0
+    bspc desktop -f 0
+
+# Swap Client to Workspace
+super + shift + {1-9}
+    bspc node -d ^{1-9} --follow
+super + shift + 0
+    bspc node -d 0 --follow
+
+# restart bspwm
+ctrl + super + r
+    bspc wm -r && pkill -x -USR1 sxhkd
+
+# quit bspwm
+ctrl + super + q
+    bspc quit
+
+# lockscreen
+alt + F4
+    $HOME/.config/bspwm/rofi/powermenu.sh
+
+# Printscreen
+Print
+    flameshot gui -p  $HOME/Pictures/Screenshots -c
+
+# Volume
+XF86AudioLowerVolume
+    pactl set-sink-volume @DEFAULT_SINK@ -5% && polybar-msg action volume hook 0
+
+XF86AudioRaiseVolume
+    pactl set-sink-volume @DEFAULT_SINK@ +5% && polybar-msg action volume hook 0
+
+XF86AudioMute
+    pactl set-sink-mute @DEFAULT_SINK@ toggle && polybar-msg action volume hook 0
+
+XF86AudioMicMute
+    pactl set-source-mute @DEFAULT_SOURCE@ toggle
+
+# Brightness
+XF86MonBrightnessDown
+    brightnessctl s 5%-
+
+XF86MonBrightnessUp
+    brightnessctl s +5%

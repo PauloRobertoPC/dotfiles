@@ -7,6 +7,7 @@ fi
 
 # aliases in another file to declutter the zshrc
 source ~/.zsh_aliases
+export NIXPKGS_ALLOW_UNFREE=1
 
 # z plugin stuffs
 if [[ ! -d ~/.zplug ]]; then
@@ -34,3 +35,6 @@ clear
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+# To customize prompt, run `p10k configure` or edit ~/dotfiles/user/zsh/.p10k.zsh.
+[[ ! -f ~/dotfiles/user/zsh/.p10k.zsh ]] || source ~/dotfiles/user/zsh/.p10k.zsh

@@ -14,7 +14,7 @@
 		./user/zsh/zsh.nix
 		./user/nvim/nvim.nix
 		./user/virtualization/virtualization.nix
-		./user/awesome/awesome.nix
+		./user/bspwm/bspwm.nix
 	];
 
 	home.username = userSettings.username;
@@ -24,14 +24,17 @@
 
 	home.packages = (
         with pkgs; [
-            libsForQt5.okular
+            cachix
+            rnote
             texliveFull
             ticktick
+            zathura
         ]
     )
     ++
     (
         with pkgs-unstable; [
+            devenv
         ]
     );
 
@@ -43,6 +46,15 @@
 	home.sessionVariables = {
 		EDITOR = "nvim";
 	};
+
+    programs.git = {
+        enable = true;
+        userName = "PauloRobertoPC";
+        userEmail = "prpc025pro@gmail.com";
+        extraConfig = {
+            init.defaultBranch = "main";
+        };
+    };
 
 	# Let Home Manager install and manage itself.
 	programs.home-manager.enable = true;

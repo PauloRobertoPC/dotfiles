@@ -3,175 +3,75 @@ if not status_ok then
     return
 end
 
-local setup = {
-    plugins = {
-        marks = true, -- shows a list of your marks on ' and `
-        registers = true, -- shows your registers on " in NORMAL or <C-r> in INSERT mode
-        spelling = {
-            enabled = true, -- enabling this will show WhichKey when pressing z= to select spelling suggestions
-            suggestions = 20, -- how many suggestions should be shown in the list?
-        },
-        -- the presets plugin, adds help for a bunch of default keybindings in Neovim
-        -- No actual key bindings are created
-        presets = {
-            operators = false, -- adds help for operators like d, y, ... and registers them for motion / text object completion
-            motions = true, -- adds help for motions
-            text_objects = true, -- help for text objects triggered after entering an operator
-            windows = true, -- default bindings on <c-w>
-            nav = true, -- misc bindings to work with windows
-            z = true, -- bindings for folds, spelling and others prefixed with z
-            g = true, -- bindings for prefixed with g
-        },
-    },
-    -- add operators that will trigger motion and text object completion
-    -- to enable all native operators, set the preset / operators plugin above
-    -- operators = { gc = "Comments" },
-    key_labels = {
-        -- override the label used to display some keys. It doesn't effect WK in any other way.
-        -- For example:
-        -- ["<space>"] = "SPC",
-        -- ["<cr>"] = "RET",
-        -- ["<tab>"] = "TAB",
-    },
-    icons = {
-        breadcrumb = "»", -- symbol used in the command line area that shows your active key combo
-        separator = "➜", -- symbol used between a key and it's label
-        group = "+", -- symbol prepended to a group
-    },
-    popup_mappings = {
-        scroll_down = "<c-d>", -- binding to scroll down inside the popup
-        scroll_up = "<c-u>", -- binding to scroll up inside the popup
-    },
-    window = {
-        border = "rounded", -- none, single, double, shadow
-        position = "bottom", -- bottom, top
-        margin = { 1, 0, 1, 0 }, -- extra window margin [top, right, bottom, left]
-        padding = { 2, 2, 2, 2 }, -- extra window padding [top, right, bottom, left]
-        winblend = 0,
-    },
-    layout = {
-        height = { min = 4, max = 25 }, -- min and max height of the columns
-        width = { min = 20, max = 50 }, -- min and max width of the columns
-        spacing = 3, -- spacing between columns
-        align = "left", -- align columns left, center or right
-    },
-    ignore_missing = true, -- enable this to hide mappings for which you didn't specify a label
-    hidden = { "<silent>", "<cmd>", "<Cmd>", "<CR>", "call", "lua", "^:", "^ " }, -- hide mapping boilerplate
-    show_help = true, -- show help message on the command line when the popup is visible
-    triggers = "auto", -- automatically setup triggers
-    -- triggers = {"<leader>"} -- or specify a list manually
-    triggers_blacklist = {
-        -- list of mode / prefixes that should never be hooked by WhichKey
-        -- this is mostly relevant for key maps that start with a native binding
-        -- most people should not need to change this
-        i = { "j", "k" },
-        v = { "j", "k" },
-    },
-}
+which_key.add({
 
-local opts = {
-    mode = "n", -- NORMAL mode
-    prefix = "<leader>",
-    buffer = nil, -- Global mappings. Specify a buffer number for buffer local mappings
-    silent = true, -- use `silent` when creating keymaps
-    noremap = true, -- use `noremap` when creating keymaps
-    nowait = true, -- use `nowait` when creating keymaps
-}
+    { "<leader>c", group = "colors" },
+    { "<leader>cc", "<cmd>CccConvert<cr>", desc = "[c]onvert", mode = "n" },
+    { "<leader>cp", "<cmd>CccPick<cr>", desc = "[p]ick color", mode = "n" },
+    { "<leader>cs", "<cmd>CccHighlighterToggle<cr>", desc = "[s]how [c]olors", mode = "n" },
 
-local optsv = {
-    mode = "v", -- VISUAL mode
-    prefix = "<leader>",
-    buffer = nil, -- Global mappings. Specify a buffer number for buffer local mappings
-    silent = true, -- use `silent` when creating keymaps
-    noremap = true, -- use `noremap` when creating keymaps
-    nowait = true, -- use `nowait` when creating keymaps
-}
+    { "<leader>d", group = "debug" },
+    { "<leader>da", "<cmd>lua require'dap'.continue()<CR>", desc = "Continue", mode = "n"  },
+    { "<leader>db", "<cmd>lua require'dap'.step_over()<CR>", desc = "Step Over", mode = "n"  },
+    { "<leader>dc", "<cmd>lua require'dap'.step_into()<CR>", desc = "Step Into", mode = "n"  },
+    { "<leader>dd", "<cmd>lua require'dap'.step_out()<CR>", desc = "Step Out", mode = "n"  },
+    { "<leader>de", "<cmd>lua require'dap'.toggle_breakpoint()<CR>", desc = "Toggle Breakpoint", mode = "n"  },
+    { "<leader>df", "<cmd>lua require('dapui').toggle()<CR>", desc = "Toggle DAP UI", mode = "n"  },
 
-local mappings = {
-    ["b"] = { "<cmd> BufferLinePick<cr>", "Buffer Picker" },
-    g = {
-        name = "Git",
-        w = { "<cmd>lua require 'gitsigns'.next_hunk()<cr>", "next(w) junk" },
-        b = { "<cmd>lua require 'gitsigns'.prev_hunk()<cr>", "previous(b) junk" },
-        l = { "<cmd>lua require 'gitsigns'.blame_line()<cr>", "b[l]ame" },
-        p = { "<cmd>lua require 'gitsigns'.preview_hunk()<cr>", "[p]review hunk" },
-        r = { "<cmd>lua require 'gitsigns'.reset_hunk()<cr>", "[r]eset hunk" },
-        R = { "<cmd>lua require 'gitsigns'.reset_buffer()<cr>", "[R]eset buffer" },
-        s = { "<cmd>lua require 'gitsigns'.stage_hunk()<cr>", "[s]tage hunk" },
-        u = { "<cmd>lua require 'gitsigns'.undo_stage_hunk()<cr>", "[u]ndo stage hunk", },
-        f = { "<cmd>Telescope git_status<cr>", "open changed [f]ile" },
-        B = { "<cmd>Telescope git_branches<cr>", "checkout [B]ranch" },
-        c = { "<cmd>Telescope git_commits<cr>", "checkout [c]ommit" },
-        d = { "<cmd>Gitsigns diffthis HEAD<cr>", "[d]iff", },
-    },
-    l = { 
-        name = "LSP",
-        a = { "<cmd>lua vim.lsp.buf.code_action()<CR>", "code [A]ction"},
-        b = { "<cmd>lua vim.diagnostic.goto_prev()<CR>", "Previous(b) Diagnostic"},
-        d = { "<cmd>lua vim.lsp.buf.definition()<CR>", "go to [d]efinition"},
-        D = { "<cmd>lua vim.lsp.buf.declaration()<CR>", "go to [D]eclaration"},
-        f = { "<cmd>lua vim.lsp.buf.formatting()<CR>", "[f]ormat"},
-        h = { "<cmd>lua vim.lsp.buf.hover()<CR>", "[h]over documentation"},
-        H = { "<cmd>lua vim.lsp.buf.signature_help()<CR>", "[H]over signature documentation"},
-        i = { "<cmd>lua vim.lsp.buf.implementation()<CR>", "go to [i]mplementation"},
-        l = { "<cmd>lua vim.diagnostic.setloclist()<CR>", "diagnostics [l]ist"},
-        r = { "<cmd>lua vim.lsp.buf.references()<CR>", "go to [r]eferences"},
-        R = { "<cmd>lua vim.lsp.buf.rename()<CR>", "[R]ename"},
-        s = { "<cmd>lua vim.diagnostic.open_float()<CR>", "[s]how diagnostic"},
-        t = { "<cmd>lua vim.lsp.buf.type_definition()<CR>", "go to [t]ype definition"},
-        w = { "<cmd>lua vim.diagnostic.goto_next()<CR>", "next(w) diagnostic"},
-    },
-    -- All setted in 'treesitter.lua' file
-    t = { name = "Treesitter",},
-    f = {
-        name = "Find",
-        b = { "<cmd>Telescope git_branches<cr>", "[b]ranch" },
-        c = { "<cmd>Telescope colorscheme<cr>", "[c]olorscheme" },
-        C = { "<cmd>Telescope commands<cr>", "[C]ommands" },
-        f = { "<cmd>lua require('telescope.builtin').find_files(require('telescope.themes'))<cr>", "[f]iles" },
-        h = { "<cmd>Telescope help_tags<cr>", "[h]elp" },
-        k = { "<cmd>Telescope keymaps<cr>", "[k]eymaps" },
-        M = { "<cmd>Telescope man_pages<cr>", "[M]an pages" },
-        r = { "<cmd>Telescope oldfiles<cr>", "open [r]ecent File" },
-        R = { "<cmd>Telescope registers<cr>", "[R]egisters" },
-        t = { "<cmd>Telescope live_grep theme=ivy<cr>", "[t]ext" },
-    },
-    d = {
-        name = "Debug",
-        a = { "<cmd>lua require'dap'.continue()<CR>", "Continue" },
-        b = { "<cmd>lua require'dap'.step_over()<CR>", "Step Over" },
-        c = { "<cmd>lua require'dap'.step_into()<CR>", "Step Into" },
-        d = { "<cmd>lua require'dap'.step_out()<CR>", "Step Out" },
-        e = { "<cmd>lua require'dap'.toggle_breakpoint()<CR>", "Toggle Breakpoint" },
-        f = { "<cmd>lua require('dapui').toggle()<CR>", "Toggle DAP UI" },
-    },
-    o = {
-        name = "Open",
-        b = {"<cmd>ObsidianOpen<cr>", "o[b]sidian"},
-        d = {"<cmd>Telescope diagnostics<cr>", "[d]iagnostics"},
-        e = { "<cmd>Neotree toggle<cr>", "[e]xplorer tree" },
-        l = { "<cmd>VimtexCompile<cr>", "[l]atex" },
-        m = { "<cmd>MarkdownPreviewToggle<cr>", "[m]arkdown" },
-        o = { "<cmd>SymbolsOutline<cr>", "[o]utline" },
-        p = { "<cmd>TSPlaygroundToggle<cr>", "treesitter [p]layground" },
-        t = {"<cmd>TodoTelescope<cr>", "[t]odo telescope"},
-    },
-    c = {
-        name = "Colors",
-        c = {"<cmd>CccConvert<cr>", "[c]onvert"},
-        p = {"<cmd>CccPick<cr>", "[p]ick color"},
-        s = {"<cmd>CccHighlighterToggle<cr>", "[s]how [c]olors"},
-    },
-    [""] = {
-        ["h"] = { "<cmd>nohlsearch<CR>", "No [h]ighlight" },
-        ["/"] = { "<Plug>(comment_toggle_linewise_current)", "Comment" },
-    },
-}
+    { "<leader>f", group = "find" },
+    { "<leader>fb", "<cmd>Telescope git_branches<cr>", desc = "[b]ranch", mode = "n" },
+    { "<leader>fc", "<cmd>Telescope colorscheme<cr>", desc = "[c]olorscheme", mode = "n" },
+    { "<leader>fC", "<cmd>Telescope commands<cr>", desc = "[C]ommands", mode = "n" },
+    { "<leader>ff", "<cmd>Telescope find_files<cr>", desc = "[f]iles", mode = "n" },
+    { "<leader>fh", "<cmd>Telescope help_tags<cr>", desc = "[h]elp", mode = "n" },
+    { "<leader>fk", "<cmd>Telescope keymaps<cr>", desc = "[k]eymaps", mode = "n" },
+    { "<leader>fM", "<cmd>Telescope man_pages<cr>", desc = "[M]an pages", mode = "n" },
+    { "<leader>fr", "<cmd>Telescope oldfiles<cr>", desc = "open [r]ecent File", mode = "n" },
+    { "<leader>fR", "<cmd>Telescope registers<cr>", desc = "[R]egisters", mode = "n" },
+    { "<leader>ft", "<cmd>Telescope live_grep theme=ivy<cr>", desc = "[t]ext", mode = "n" },
 
-local mappingsv = {
-    ["/"] = { "<Plug>(comment_toggle_linewise_visual)", "Comment" },
-}
+    { "<leader>g", group = "git" },
+    { "<leader>gb", "<cmd>lua require 'gitsigns'.prev_hunk()<cr>", desc = "previous(b) junk", mode = "n" },
+    { "<leader>gB", "<cmd>Telescope git_branches<cr>", desc = "checkout [B]ranch", mode = "n" },
+    { "<leader>gc", "<cmd>Telescope git_commits<cr>", desc = "checkout [c]ommit", mode = "n" },
+    { "<leader>gd", "<cmd>Gitsigns diffthis HEAD<cr>", desc = "[d]iff", mode = "n" },
+    { "<leader>gf", "<cmd>Telescope git_status<cr>", desc = "open changed [f]ile", mode = "n" },
+    { "<leader>gw", "<cmd>lua require 'gitsigns'.next_hunk()<cr>", desc = "next(w) junk", mode = "n" },
+    { "<leader>gl", "<cmd>lua require 'gitsigns'.blame_line()<cr>", desc = "b[l]ame", mode = "n" },
+    { "<leader>gp", "<cmd>lua require 'gitsigns'.preview_hunk()<cr>", desc = "[p]review hunk", mode = "n" },
+    { "<leader>gr", "<cmd>lua require 'gitsigns'.reset_hunk()<cr>", desc = "[r]eset hunk", mode = "n" },
+    { "<leader>gR", "<cmd>lua require 'gitsigns'.reset_buffer()<cr>", desc = "[R]eset buffer", mode = "n" },
+    { "<leader>gs", "<cmd>lua require 'gitsigns'.stage_hunk()<cr>", desc = "[s]tage hunk", mode = "n" },
+    { "<leader>gu", "<cmd>lua require 'gitsigns'.undo_stage_hunk()<cr>", desc = "[u]ndo stage hunk", mode = "n" },
 
-which_key.setup(setup)
-which_key.register(mappings, opts)
-which_key.register(mappingsv, optsv)
+    { "<leader>l", group = "lsp" },
+    { "<leader>la", "<cmd>lua vim.lsp.buf.code_action()<CR>", desc = "code [A]ction", mode = "n" },
+    { "<leader>lb", "<cmd>lua vim.diagnostic.goto_prev()<CR>", desc = "Previous(b) Diagnostic", mode = "n" },
+    { "<leader>ld", "<cmd>lua vim.lsp.buf.definition()<CR>", desc = "go to [d]efinition", mode = "n" },
+    { "<leader>lD", "<cmd>lua vim.lsp.buf.declaration()<CR>", desc = "go to [D]eclaration", mode = "n" },
+    { "<leader>lf", "<cmd>lua vim.lsp.buf.formatting()<CR>", desc = "[f]ormat", mode = "n" },
+    { "<leader>lh", "<cmd>lua vim.lsp.buf.hover()<CR>", desc = "[h]over documentation", mode = "n" },
+    { "<leader>lH", "<cmd>lua vim.lsp.buf.signature_help()<CR>", desc = "[H]over signature documentation", mode = "n" },
+    { "<leader>li", "<cmd>lua vim.lsp.buf.implementation()<CR>", desc = "go to [i]mplementation", mode = "n" },
+    { "<leader>ll", "<cmd>lua vim.diagnostic.setloclist()<CR>", desc = "diagnostics [l]ist", mode = "n" },
+    { "<leader>lr", "<cmd>lua vim.lsp.buf.references()<CR>", desc = "go to [r]eferences", mode = "n" },
+    { "<leader>lR", "<cmd>lua vim.lsp.buf.rename()<CR>", desc = "[R]ename", mode = "n" },
+    { "<leader>ls", "<cmd>lua vim.diagnostic.open_float()<CR>", desc = "[s]how diagnostic", mode = "n" },
+    { "<leader>lt", "<cmd>lua vim.lsp.buf.type_definition()<CR>", desc = "go to [t]ype definition", mode = "n" },
+    { "<leader>lw", "<cmd>lua vim.diagnostic.goto_next()<CR>", desc = "next(w) diagnostic", mode = "n" },
+
+    { "<leader>o", group = "open" },
+    { "<leader>ob", "<cmd>ObsidianOpen<cr>", desc = "o[b]sidian", mode = "n" },
+    { "<leader>od", "<cmd>Telescope diagnostics<cr>", desc = "[d]iagnostics", mode = "n" },
+    { "<leader>oe", "<cmd>Neotree toggle<cr>", desc = "[e]xplorer tree", mode = "n"  },
+    { "<leader>ol", "<cmd>VimtexCompile<cr>", desc = "[l]atex", mode = "n"  },
+    { "<leader>om", "<cmd>MarkdownPreviewToggle<cr>", desc = "[m]arkdown", mode = "n"  },
+    { "<leader>oo", "<cmd>SymbolsOutline<cr>", desc = "[o]utline", mode = "n"  },
+    { "<leader>op", "<cmd>TSPlaygroundToggle<cr>", desc = "treesitter [p]layground", mode = "n"  },
+    { "<leader>ot", "<cmd>TodoTelescope<cr>", desc = "[t]odo telescope", mode = "n" },
+
+    { "<leader>h", "<cmd>nohlsearch<CR>", desc = "No [h]ighlight", mode = "n" },
+    { "<leader>/", "<Plug>(comment_toggle_linewise_current)", desc = "Comment", mode = "n" },
+
+    { "<leader>/", "<Plug>(comment_toggle_linewise_visual)", desc = "Comment", mode = "v" },
+})

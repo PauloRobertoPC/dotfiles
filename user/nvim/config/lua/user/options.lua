@@ -30,3 +30,4 @@ vim.opt.cursorline = true                       -- highlight the current line
 vim.opt.signcolumn = "yes"                      -- always show the sign column, otherwise it would shift the text each time
 vim.opt.scrolloff = 8                           -- is one of my fav
 vim.opt.sidescrolloff = 8
+vim.o.guifont = "JetBrains Mono Nerd Font:h10"

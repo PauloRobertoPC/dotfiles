@@ -1,5 +1,7 @@
-local ls = require("luasnip") --{{{
+local ls = require("luasnip")
+
 local exp_conds = require("luasnip.extras.conditions.expand")
+-- require("luasnip.extras.conditions").make_condition(function)
 
 local s = ls.s  -- snippet
 local i = ls.i  -- insert node
@@ -11,70 +13,24 @@ local f = ls.function_node
 local sn = ls.snippet_node
 
 local fmt = require("luasnip.extras.fmt").fmt
+local fmta = require("luasnip.extras.fmt").fmta
 local rep = require("luasnip.extras").rep
+
+local postfix = require("luasnip.extras.postfix").postfix
 
 local snippets, autosnippets = {}, {} --}}}
 
 local group = vim.api.nvim_create_augroup("Lua Snippets", { clear = true })
 local file_pattern = "*.lua"
 
-local function cs(trigger, nodes, opts) --{{{
-    local snippet = s(trigger, nodes)
-    local target_table = snippets
+-- add autosnippets
+local aa = function(snp)
+    table.insert(autosnippets, snp)
+end
 
-    local pattern = file_pattern
-    local keymaps = {}
-
-    if opts ~= nil then
-        -- check for custom pattern
-        if opts.pattern then
-            pattern = opts.pattern
-        end
-
-        -- if opts is a string
-        if type(opts) == "string" then
-            if opts == "auto" then
-                target_table = autosnippets
-            else
-                table.insert(keymaps, { "i", opts })
-            end
-        end
-
-        -- if opts is a table
-        if opts ~= nil and type(opts) == "table" then
-            for _, keymap in ipairs(opts) do
-                if type(keymap) == "string" then
-                    table.insert(keymaps, { "i", keymap })
-                else
-                    table.insert(keymaps, keymap)
-                end
-            end
-        end
-
-        -- set autocmd for each keymap
-        if opts ~= "auto" then
-            for _, keymap in ipairs(keymaps) do
-                vim.api.nvim_create_autocmd("BufEnter", {
-                    pattern = pattern,
-                    group = group,
-                    callback = function()
-                        vim.keymap.set(keymap[1], keymap[2], function()
-                            ls.snip_expand(snippet)
-                            end, { noremap = true, silent = true, buffer = true })
-                    end,
-                })
-            end
-        end
-    end
-
-    table.insert(target_table, snippet) -- insert snippet into appropriate table
-end --}}}
-
--- Start Refactoring --
-
---j
---
--- End Refactoring --
+local as = function(snp)
+    table.insert(snippets, snp)
+end
 
 -- Start Condition --
 local inside_X_dolar = function(X)
@@ -129,8 +85,7 @@ local inside_double_dolar = function()
 end
 
 local outside_dolar = function()
-    return true
-    -- return not inside_X_dolar(1) and not inside_X_dolar(2)
+    return not inside_X_dolar(1) and not inside_X_dolar(2)
 end
 
 -- m -> insert when it's inside of $
@@ -141,155 +96,149 @@ local M = require("luasnip.extras.conditions").make_condition(inside_double_dola
 local T = require("luasnip.extras.conditions").make_condition(outside_dolar)
 -- End Conditions --
 
--- Start Markdown -- 
 
-local highlight = s({trig="**", condition=T},fmt([[**{}**]],{i(1,"text")}))
-table.insert(autosnippets, highlight)
-
--- End Markdown -- 
-
--- Start Mathjax -- 
-
-local math_line = s(
-    {
-        trig="ml",
-        condition = T
-    },
-    fmt(
-        [[ 
-            ${}${}
-        ]], 
+aa(
+    s(
         {
-            i(1, "math"),
-            i(2, ""),
-            
-        }
+            trig="ml",
+            condition = T
+        },
+        fmta(
+            [[ 
+                $<>$<>
+            ]], 
+            {
+                i(1, "math"),
+                i(2, ""),
+                
+            }
+        )
     )
 )
-table.insert(autosnippets, math_line)
 
-local math_multline = s(
-    {
-        trig="mm",
-        condition = T,
-    },
-    fmt(
-        [[ 
-            $$
-               {} 
-           $$
-        ]], 
+aa(
+    s(
         {
-            i(1, "math"),
-        }
+            trig="mm",
+            condition = T,
+        },
+        fmta(
+            [[ 
+                $$
+                   <>
+                $$
+            ]], 
+            {
+                i(1, "math"),
+            }
+        )
     )
 )
-table.insert(autosnippets, math_multline)
+
+-- Comparators
+aa(s({trig="!=", condition=m+M},fmta([[\neq]],{})))
+aa(s({trig=">=", condition=m+M},fmta([[\geq]],{})))
+aa(s({trig="<=", condition=m+M},fmta([[\leq]],{})))
 
 -- Arithmetic
-local pw = s({trig="([^%s]+)pw",regTrig=true,condition=m+M},
-    fmt([[{}^{{{}}}]],{f(function(_, snip) return snip.captures[1] end),i(1,""),}))
-table.insert(autosnippets, pw)
-local sq = s({trig="sq", condition=m+M},fmt([[\sqrt{{{}}}]],{i(1,"")}))
-table.insert(autosnippets, sq)
-local ud = s({trig="([^%s]+)ud",regTrig=true,condition=m+M},
-    fmt([[{}_{{{}}}]],{f(function(_, snip) return snip.captures[1] end),i(1,""),}))
-table.insert(autosnippets, ud)
+aa(s({trig="([^%s]+)pw",regTrig=true,condition=m+M},
+    fmta([[<>^{<>}]],{f(function(_, snip) return snip.captures[1] end),i(1,""),})))
+aa(s({trig="sq", condition=m+M},fmta([[\sqrt{<>}]],{i(1,"")})))
+aa(s({trig="([^%s]+)ss",regTrig=true,condition=m+M},
+    fmta([[<>_{<>}]],{f(function(_, snip) return snip.captures[1] end),i(1,""),})))
+aa(s({trig="//", condition=m+M},fmta([[\frac{<>}{<>}]],{i(1,""),i(2,"")})))
+aa(s({trig="([%+%-%*])/", regTrig=true, condition=m+M},fmta([[<>\frac{<>}{<>}]],
+    {f(function(_, snip) return snip.captures[1] end), i(1,""), i(2,"")})))
+aa(s({trig="([^%s$(){}]+)/", regTrig=true, condition=m+M},fmta([[\frac{<>}{<>}]],
+    {f(function(_, snip) return snip.captures[1] end), i(1,"")})))
+aa(s({trig="(%b())/", regTrig=true, condition=m+M},fmta([[\frac{<>}{<>}]],
+    {f(function(_, snip) return snip.captures[1]:sub(2,-2) end), i(1,"")})))
 
 -- Greek letters
-local alpha = s({trig="@a", condition=m+M},fmt([[\alpha]],{}))
-local Alpha = s({trig="@A", condition=m+M},fmt([[\alpha]],{}))
-table.insert(autosnippets, alpha)
-table.insert(autosnippets, Alpha)
-local beta = s({trig="@b", condition=m+M},fmt([[\beta]],{}))
-local Beta = s({trig="@B", condition=m+M},fmt([[\beta]],{}))
-table.insert(autosnippets, beta)
-table.insert(autosnippets, Beta)
-local chi = s({trig="@c", condition=m+M},fmt([[\chi]],{}))
-local Chi = s({trig="@c", condition=m+M},fmt([[\chi]],{}))
-table.insert(autosnippets, chi)
-table.insert(autosnippets, Chi)
-local delta = s({trig="@d", condition=m+M},fmt([[\delta]],{}))
-local Delta = s({trig="@D", condition=m+M},fmt([[\Delta]],{}))
-table.insert(autosnippets, delta)
-table.insert(autosnippets, Delta)
-local epsilon = s({trig="@e", condition=m+M},fmt([[\epsilon]],{}))
-local Epsilon = s({trig="@E", condition=m+M},fmt([[\epsilon]],{}))
-table.insert(autosnippets, epsilon)
-table.insert(autosnippets, Epsilon)
-local var_epsilon = s({trig="@ve", condition=m+M},fmt([[\varepsilon]],{}))
-local Var_epsilon = s({trig="@vE", condition=m+M},fmt([[\varepsilon]],{}))
-table.insert(autosnippets, var_epsilon)
-table.insert(autosnippets, Var_epsilon)
-local gamma = s({trig="@g", condition=m+M},fmt([[\gamma]],{}))
-local Gamma = s({trig="@G", condition=m+M},fmt([[\Gamma]],{}))
-table.insert(autosnippets, gamma)
-table.insert(autosnippets, Gamma)
-local kappa = s({trig="@k", condition=m+M},fmt([[\kappa]],{}))
-local Kappa = s({trig="@K", condition=m+M},fmt([[\kappa]],{}))
-table.insert(autosnippets, kappa)
-table.insert(autosnippets, Kappa)
-local lambda = s({trig="@l", condition=m+M},fmt([[\lambda]],{}))
-local Lambda = s({trig="@L", condition=m+M},fmt([[\Lambda]],{}))
-table.insert(autosnippets, lambda)
-table.insert(autosnippets, Lambda)
-local mu = s({trig="@m", condition=m+M},fmt([[\mu]],{}))
-local Mu = s({trig="@M", condition=m+M},fmt([[\mu]],{}))
-table.insert(autosnippets, mu)
-table.insert(autosnippets, Mu)
-local omega = s({trig="@o", condition=m+M},fmt([[\omega]],{}))
-local Omega = s({trig="@O", condition=m+M},fmt([[\Omega]],{}))
-table.insert(autosnippets, omega)
-table.insert(autosnippets, Omega)
-local rho = s({trig="@r", condition=m+M},fmt([[\rho]],{}))
-local Rho = s({trig="@R", condition=m+M},fmt([[\rho]],{}))
-table.insert(autosnippets, rho)
-table.insert(autosnippets, Rho)
-local sigma = s({trig="@s", condition=m+M},fmt([[\sigma]],{}))
-local Sigma = s({trig="@S", condition=m+M},fmt([[\Sigma]],{}))
-table.insert(autosnippets, sigma)
-table.insert(autosnippets, Sigma)
-local theta = s({trig="@t", condition=m+M},fmt([[\theta]],{}))
-local Theta = s({trig="@T", condition=m+M},fmt([[\Theta]],{}))
-table.insert(autosnippets, theta)
-table.insert(autosnippets, Theta)
-local upsilon = s({trig="@u", condition=m+M},fmt([[\upsilon]],{}))
-local Upsilon = s({trig="@U", condition=m+M},fmt([[\Upsilon]],{}))
-table.insert(autosnippets, upsilon)
-table.insert(autosnippets, Upsilon)
-local zeta = s({trig="@z", condition=m+M},fmt([[\zeta]],{}))
-local Zeta = s({trig="@Z", condition=m+M},fmt([[\Zeta]],{}))
-table.insert(autosnippets, zeta)
-table.insert(autosnippets, Zeta)
+aa(s({trig=";a", condition=m+M},fmta([[\alpha]],{})))
+aa(s({trig=";A", condition=m+M},fmta([[\alpha]],{})))
+aa(s({trig=";b", condition=m+M},fmta([[\beta]],{})))
+aa(s({trig=";B", condition=m+M},fmta([[\beta]],{})))
+aa(s({trig=";c", condition=m+M},fmta([[\chi]],{})))
+aa(s({trig=";c", condition=m+M},fmta([[\chi]],{})))
+aa(s({trig=";d", condition=m+M},fmta([[\delta]],{})))
+aa(s({trig=";D", condition=m+M},fmta([[\Delta]],{})))
+aa(s({trig=";e", condition=m+M},fmta([[\epsilon]],{})))
+aa(s({trig=";E", condition=m+M},fmta([[\epsilon]],{})))
+aa(s({trig=";ve", condition=m+M},fmta([[\varepsilon]],{})))
+aa(s({trig=";vE", condition=m+M},fmta([[\varepsilon]],{})))
+aa(s({trig=";g", condition=m+M},fmta([[\gamma]],{})))
+aa(s({trig=";G", condition=m+M},fmta([[\Gamma]],{})))
+aa(s({trig=";k", condition=m+M},fmta([[\kappa]],{})))
+aa(s({trig=";K", condition=m+M},fmta([[\kappa]],{})))
+aa(s({trig=";l", condition=m+M},fmta([[\lambda]],{})))
+aa(s({trig=";L", condition=m+M},fmta([[\Lambda]],{})))
+aa(s({trig=";m", condition=m+M},fmta([[\mu]],{})))
+aa(s({trig=";M", condition=m+M},fmta([[\mu]],{})))
+aa(s({trig=";o", condition=m+M},fmta([[\omega]],{})))
+aa(s({trig=";O", condition=m+M},fmta([[\Omega]],{})))
+aa(s({trig=";p", condition=m+M},fmta([[\phi]],{})))
+aa(s({trig=";P", condition=m+M},fmta([[\Phi]],{})))
+aa(s({trig=";vp", condition=m+M},fmta([[\varphi]],{})))
+aa(s({trig=";vP", condition=m+M},fmta([[\varphi]],{})))
+aa(s({trig=";r", condition=m+M},fmta([[\rho]],{})))
+aa(s({trig=";R", condition=m+M},fmta([[\rho]],{})))
+aa(s({trig=";s", condition=m+M},fmta([[\sigma]],{})))
+aa(s({trig=";S", condition=m+M},fmta([[\Sigma]],{})))
+aa(s({trig=";t", condition=m+M},fmta([[\theta]],{})))
+aa(s({trig=";T", condition=m+M},fmta([[\Theta]],{})))
+aa(s({trig=";u", condition=m+M},fmta([[\upsilon]],{})))
+aa(s({trig=";U", condition=m+M},fmta([[\Upsilon]],{})))
+aa(s({trig=";z", condition=m+M},fmta([[\zeta]],{})))
+aa(s({trig=";Z", condition=m+M},fmta([[\Zeta]],{})))
 
 -- Set
-local bb = s({trig="bb", condition=m+M},fmt([[\mathbb{{{}}}]],{i(1,"")}))
-table.insert(autosnippets, bb)
-local dots = s({trig="dots", condition=m+M},fmt([[\dots]],{}))
-table.insert(autosnippets, dots)
-local eset = s({trig="eset", condition=m+M},fmt([[\emptyset]],{}))
-table.insert(autosnippets, eset)
-local in_set = s({trig="in", condition=m+M},fmt([[\in]],{}))
-table.insert(autosnippets, in_set)
-local notin = s({trig="notin", condition=m+M},fmt([[\not \in]],{}))
-table.insert(autosnippets, notin)
-local sand = s({trig="sand", condition=m+M},fmt([[\cap]],{}))
-table.insert(autosnippets, sand)
-local set = s({trig="set", condition=m+M},fmt([[\{{{}\}}]],{i(1,"")}))
-table.insert(autosnippets, set)
-local sor = s({trig="sor", condition=m+M},fmt([[\cup]],{}))
-table.insert(autosnippets, sor)
+aa(s({trig="bb", condition=m+M},fmta([[\mathbb{<>}]],{i(1,"")})))
+aa(s({trig="dots", condition=m+M},fmta([[\dots]],{})))
+aa(s({trig="eset", condition=m+M},fmta([[\emptyset]],{})))
+aa(s({trig="in", condition=m+M},fmta([[\in]],{})))
+aa(s({trig="notin", condition=m+M},fmta([[\not \in]],{})))
+aa(s({trig="sand", condition=m+M},fmta([[\cap]],{})))
+aa(s({trig="set", condition=m+M},fmta([[\{<>\}]],{i(1,"")})))
+aa(s({trig="sor", condition=m+M},fmta([[\cup]],{})))
+aa(s({trig="times", condition=m+M},fmta([[\times]],{})))
 
 -- Symbols
-local infinity = s({trig="ooo", condition=m+M},fmt([[\infty]],{}))
-table.insert(autosnippets, infinity)
-local lim = s({trig="lim", condition=m+M},fmt([[\lim_{{{} \to {}}}]],{i(1,"x"),i(2,"\\infty")}))
-table.insert(autosnippets, lim)
-local prod = s({trig="prod", condition=m+M},fmt([[\prod_{{{}}}^{{{}}}]],{i(1,""),i(2,"")}))
-table.insert(autosnippets, prod)
-local sum = s({trig="sum", condition=m+M},fmt([[\sum_{{{}}}^{{{}}}]],{i(1,""),i(2,"")}))
-table.insert(autosnippets, sum)
+aa(s({trig="ooo", condition=m+M},fmta([[\infty]],{})))
+aa(s({trig="lim", condition=m+M},fmta([[\lim_{<> \to <>}]],{i(1,"x"),i(2,"\\infty")})))
+aa(s({trig="prod", condition=m+M},fmta([[\prod_{<>}^{<>}]],{i(1,""),i(2,"")})))
+aa(s({trig="sum", condition=m+M},fmta([[\sum_{<>}^{<>}]],{i(1,""),i(2,"")})))
+aa(s({trig="~", condition=m+M},fmta([[\widetilde{<>}<>]],{i(1,""),i(2,"")})))
 
--- End Mathjax -- 
+
+-- Arrows
+aa(s({trig="<a", condition=m+M},fmta([[\leftarrow]],{})))
+aa(s({trig="<A", condition=m+M},fmta([[\Leftarrow]],{})))
+aa(s({trig=">a", condition=m+M},fmta([[\rightarrow]],{})))
+aa(s({trig=">A", condition=m+M},fmta([[\Rightarrow]],{})))
+aa(s({trig="<>a", condition=m+M},fmta([[\leftrightarrow]],{})))
+aa(s({trig="<>A", condition=m+M},fmta([[\Leftrightarrow]],{})))
+
+-- Math Fonts
+aa(s({trig="(%a)%.cal", regTrig=true, condition=m+M}, {f(function(_, snip) return "\\mathcal{" .. snip.captures[1] .."}" end)}))
+
+aa(
+    postfix(".beg",
+        fmta(
+            [[
+                \begin{<>}
+                    <>
+                \end{<>}
+            ]],
+            {
+                f(function(_, parent) return parent.snippet.env.POSTFIX_MATCH end),
+                i(1, ""),
+                f(function(_, parent) return parent.snippet.env.POSTFIX_MATCH end),
+            }
+        )
+    )
+)
+
+aa(s({trig="text", condition=m+M},fmta([[\text{ <> }]],{i(1,"text")})))
 
 return snippets, autosnippets
