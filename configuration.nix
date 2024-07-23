@@ -19,11 +19,8 @@
     users.defaultUserShell = pkgs.zsh;
     programs.zsh.enable = true;
 
-    # Using awesome
-    services.xserver.windowManager.awesome.enable = true;
-
-    # Using bspwm
-    services.xserver.windowManager.bspwm.enable = true;
+    # Using hyprland
+    programs.hyprland.enable = true;
 
     # blueman
     services.blueman.enable = true;
@@ -84,26 +81,18 @@
     # Enable CUPS to print documents.
     services.printing.enable = true;
 
-    # Enable sound with pulseaudio.
-    sound.enable = true;
-    hardware.pulseaudio.enable = true;
-    hardware.pulseaudio.support32Bit = true;
-
     # Enable sound with pipewire.
-    # sound.enable = true;
-    # security.rtkit.enable = true;
-    # services.pipewire = {
-    #     enable = true;
-    #     alsa.enable = true;
-    #     alsa.support32Bit = true;
-    #     pulse.enable = true;
-    #     # If you want to use JACK applications, uncomment this
-    #     #jack.enable = true;
-    #
-    #     # use the example session manager (no others are packaged yet so this is enabled by default,
-    #     # no need to redefine it in your config for now)
-    #     #media-session.enable = true;
-    # };
+    hardware.pulseaudio.enable = false;
+    security.rtkit.enable = true;
+    services.pipewire = {
+        enable = true;
+        alsa.enable = true;
+        alsa.support32Bit = true;
+        pulse.enable = true;
+        # If you want to use JACK applications, uncomment this
+        jack.enable = true;
+        wireplumber.enable = true;
+    };
 
     # Enable touchpad support (enabled default in most desktopManager).
     # services.xserver.libinput.enable = true;
@@ -143,13 +132,16 @@
             neofetch
             obsidian
             peek
+            pipewire
             ripgrep
+            rtkit
             telegram-desktop
             tmux
             unzip
             vim-full
             vscode
             wget
+            wireplumber
             xsel
             zip
             zsh

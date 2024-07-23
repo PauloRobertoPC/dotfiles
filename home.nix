@@ -14,7 +14,7 @@
 		./user/zsh/zsh.nix
 		./user/nvim/nvim.nix
 		./user/virtualization/virtualization.nix
-		./user/bspwm/bspwm.nix
+		./user/hyprland/hyprland.nix
 	];
 
 	home.username = userSettings.username;
