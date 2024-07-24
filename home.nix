@@ -20,11 +20,12 @@
 	home.username = userSettings.username;
     home.homeDirectory = "/home/"+userSettings.username;
 
-	home.stateVersion = "23.11"; # Please read the comment before changing.
+	home.stateVersion = "24.05"; # Please read the comment before changing.
 
 	home.packages = (
         with pkgs; [
             cachix
+            devenv
             rnote
             texliveFull
             ticktick
@@ -34,7 +35,6 @@
     ++
     (
         with pkgs-unstable; [
-            devenv
         ]
     );
 

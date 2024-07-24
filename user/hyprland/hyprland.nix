@@ -12,6 +12,7 @@ in
         libnotify
         networkmanager
         networkmanagerapplet
+        nwg-look
         rofi-wayland
         wl-clipboard
         xdg-desktop-portal-hyprland
