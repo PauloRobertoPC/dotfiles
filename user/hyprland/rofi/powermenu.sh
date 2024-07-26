@@ -4,7 +4,7 @@ choosen=$(printf "$chooses" | rofi -dmenu -theme ~/.config/hypr/rofi/style.rasi
 )
 
 case "$choosen" in
-    "Lock") betterlockscreen -l;;
+    "Lock") hyprlock;;
     "Logout") hyprctl dispatch quit;;
     "Reboot") reboot;;
     "Power Off") poweroff;;
