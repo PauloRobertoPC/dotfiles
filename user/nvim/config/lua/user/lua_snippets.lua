@@ -24,6 +24,8 @@ ls.config.set_config({
         -- 	},
         -- },
     },
+    store_selection_keys = "<Tab>",
+
 }) --}}}
 
 -- Key Mapping --{{{

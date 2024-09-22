@@ -28,12 +28,23 @@ local aa = function(snp)
     table.insert(autosnippets, snp)
 end
 
+-- add snippets
 local as = function(snp)
     table.insert(snippets, snp)
 end
 
--- Start Condition --
+local get_visual = function(args, parent)
+    if (#parent.snippet.env.LS_SELECT_RAW > 0) then
+        return sn(nil, i(1, parent.snippet.env.LS_SELECT_RAW))
+    else  -- If LS_SELECT_RAW is empty, return a blank insert node
+        return sn(nil, i(1))
+    end
+end
 
--- End Condition --
+-- { Start Condition --
+
+-- local M = require("luasnip.extras.conditions").make_condition(in_mathzone)
+
+-- End Conditions }--
 
 return snippets, autosnippets

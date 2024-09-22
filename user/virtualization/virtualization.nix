@@ -9,7 +9,10 @@
         uefi-run
         lxc
         swtpm
+
+        # Games
         bottles
+        retroarchFull
         steam
 
         # Filesystems
@@ -17,7 +20,7 @@
         ];
 
     home.file.".config/libvirt/qemu.conf".text = ''
-nvram = ["/run/libvirt/nix-ovmf/OVMF_CODE.fd:/run/libvirt/nix-ovmf/OVMF_VARS.fd"]
+        nvram = ["/run/libvirt/nix-ovmf/OVMF_CODE.fd:/run/libvirt/nix-ovmf/OVMF_VARS.fd"]
   '';
 
 }

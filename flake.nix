@@ -26,6 +26,7 @@
 			pkgs-unstable = nixpkgs-unstable.legacyPackages.${system};
 
             systemSettings = rec {
+                username = "pinto";
                 timezone = "America/Fortaleza";
             };
 

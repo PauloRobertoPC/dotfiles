@@ -18,6 +18,7 @@ in
         networkmanagerapplet
         nwg-look
         rofi-wayland
+        webcord
         wl-clipboard
         xdg-desktop-portal-hyprland
 	];

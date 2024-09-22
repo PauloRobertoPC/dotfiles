@@ -5,7 +5,7 @@ local servers = {
     'emmet_ls',
     'cssls',
     'rnix',
-    'tsserver',
+    'ts_ls',
 }
 require("mason").setup()
 require("mason-lspconfig").setup {

@@ -63,8 +63,14 @@ require('lazy').setup({
         after = "catppuccin",
     },
 
+    -- Mini
+    { 'echasnovski/mini.files', version = false },          -- Tree Eplorer
+    { 'echasnovski/mini.animate', version = false },        -- Animate
+    { 'echasnovski/mini.cursorword', version = false },     -- Cursor Word Highlight
+    { 'echasnovski/mini.surround', version = false },       -- Surround
+
+
     -- Tree Explorer
-    { "nvim-neo-tree/neo-tree.nvim", branch = "v3.x", dependencies = { "nvim-lua/plenary.nvim", "MunifTanjim/nui.nvim" } },
 
     -- -- Rainbow Parentheses
     { "HiPhish/rainbow-delimiters.nvim" },
@@ -89,9 +95,6 @@ require('lazy').setup({
         })
       end
     },
-
-    -- Smooth Scroll
-    { 'karb94/neoscroll.nvim' },
 
     -- Which Key
     {
@@ -145,31 +148,12 @@ require('lazy').setup({
     -- Git
     { 'lewis6991/gitsigns.nvim', opts = {} },
 
-    -- See and Pick colors in neovim
+    -- -- See and Pick colors in neovim
     { 
         "uga-rosa/ccc.nvim",
         config = function()
            require("ccc").setup {
            }
         end,
-    },
-
-    -- Obsidian
-    {
-        "epwalsh/obsidian.nvim",
-        version = "*",
-        lazy = true,
-        ft = "markdown",
-        dependencies = {
-            "nvim-lua/plenary.nvim",
-        },
-        opts = {
-            workspaces = {
-                {
-                name = "my-vault",
-                path = "~/Documents/Obsidian",
-                },
-            },
-        },
     },
 }, {})

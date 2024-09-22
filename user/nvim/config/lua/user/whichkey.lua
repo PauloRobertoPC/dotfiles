@@ -3,6 +3,8 @@ if not status_ok then
     return
 end
 
+
+
 which_key.add({
 
     { "<leader>c", group = "colors" },
@@ -63,7 +65,7 @@ which_key.add({
     { "<leader>o", group = "open" },
     { "<leader>ob", "<cmd>ObsidianOpen<cr>", desc = "o[b]sidian", mode = "n" },
     { "<leader>od", "<cmd>Telescope diagnostics<cr>", desc = "[d]iagnostics", mode = "n" },
-    { "<leader>oe", "<cmd>Neotree toggle<cr>", desc = "[e]xplorer tree", mode = "n"  },
+    { "<leader>oe", function() if not MiniFiles.close() then MiniFiles.open() end end, desc = "[e]xplorer tree", mode = "n"  },
     { "<leader>ol", "<cmd>VimtexCompile<cr>", desc = "[l]atex", mode = "n"  },
     { "<leader>om", "<cmd>MarkdownPreviewToggle<cr>", desc = "[m]arkdown", mode = "n"  },
     { "<leader>oo", "<cmd>SymbolsOutline<cr>", desc = "[o]utline", mode = "n"  },

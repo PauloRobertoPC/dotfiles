@@ -85,7 +85,7 @@
   users.users.pinto = {
     isNormalUser = true;
     description = "pinto";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "docker"];
     packages = with pkgs; [
     
     ];
@@ -117,11 +117,17 @@
       dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
   };
 
+  # docker
+  virtualisation.docker.enable = true;
+
+
+
   # List packages installed in system profile. To search, run:
   # $ nix search wget
     environment.systemPackages = (
         with pkgs; [
             discord
+            docker
             firefox
             flameshot
             fzf
@@ -144,6 +150,7 @@
             vim-full
             vscode
             wget
+            whatsapp-for-linux
             wireplumber
             xsel
             zip
