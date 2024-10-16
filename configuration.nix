@@ -10,6 +10,40 @@
       ./hardware-configuration.nix
     ];
 
+  ## NVIDIA SETTING
+  # Enable OpenGL
+  hardware.opengl = {
+    enable = true;
+    driSupport = true;
+    driSupport32Bit = true;
+  };
+  
+  # Load nvidia driver for Xorg and Wayland
+  services.xserver.videoDrivers = ["nvidia"];
+
+
+  hardware.nvidia = {
+    modesetting.enable = true;
+
+    powerManagement.enable = false;
+    powerManagement.finegrained = false;
+
+    open = false;
+    nvidiaSettings = true;
+    # Optionally, you may need to select the appropriate driver version for your specific GPU.
+    package = config.boot.kernelPackages.nvidiaPackages.legacy_470;
+
+
+    prime = {
+      offload = {
+	    enable = true;
+	    enableOffloadCmd = true;
+	  };
+      nvidiaBusId = "PCI:1:0:0";
+      intelBusId = "PCI:0:2:0";
+    };
+  };
+
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -93,6 +127,7 @@
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
+  nixpkgs.config.nvidia.acceptLicense = true;
   
   #just to install obsidian
   nixpkgs.config.permittedInsecurePackages = [ "electron-25.9.0" ];
@@ -119,13 +154,13 @@
 
   # docker
   virtualisation.docker.enable = true;
-
-
+  virtualisation.docker.enableNvidia = true;
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
     environment.systemPackages = (
         with pkgs; [
+            cudaPackages.cudatoolkit
             discord
             docker
             firefox

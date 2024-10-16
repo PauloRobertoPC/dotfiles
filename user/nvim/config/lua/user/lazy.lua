@@ -36,31 +36,34 @@ require('lazy').setup({
     { "simrat39/symbols-outline.nvim" },
     { "ray-x/lsp_signature.nvim" },
     { "mfussenegger/nvim-jdtls" },
-    { "utilyre/barbecue.nvim", name = "barbecue", version = "*", dependencies = { "SmiteshP/nvim-navic"}, opt={} },
 
     -- DAP
     { 'mfussenegger/nvim-dap' },
     { "rcarriga/nvim-dap-ui", dependencies = {"mfussenegger/nvim-dap", "nvim-neotest/nvim-nio"} },
     { 'mfussenegger/nvim-dap-python' },
 
-    -- FZF
+    -- Navigation
     { 'nvim-telescope/telescope.nvim', dependencies = {'nvim-lua/plenary.nvim'} },
+    { "ThePrimeagen/harpoon", branch = "harpoon2", dependencies = { "nvim-lua/plenary.nvim" } },
 
     -- Treesitter
     { "nvim-treesitter/nvim-treesitter" },
     { 'nvim-treesitter/playground' },
     { 'nvim-treesitter/nvim-treesitter-textobjects' },
 
-    -- Colorschemes
-    { "catppuccin/nvim", name = "catppuccin", priority = 1000, },
-    { 'projekt0n/github-nvim-theme' },
-    { 'maxmx03/fluoromachine.nvim' },
-
-    -- Status Line
+    -- UI
     {
-        'nvim-lualine/lualine.nvim',
-        dependencies = { 'nvim-tree/nvim-web-devicons' },
-        after = "catppuccin",
+        "nvchad/ui",
+        config = function()
+            require "nvchad" 
+        end
+    },
+    {
+        "nvchad/base46",
+        lazy = true,
+        build = function()
+            require("base46").load_all_highlights()
+        end,
     },
 
     -- Mini
@@ -69,14 +72,8 @@ require('lazy').setup({
     { 'echasnovski/mini.cursorword', version = false },     -- Cursor Word Highlight
     { 'echasnovski/mini.surround', version = false },       -- Surround
 
-
-    -- Tree Explorer
-
     -- -- Rainbow Parentheses
     { "HiPhish/rainbow-delimiters.nvim" },
-
-    -- Bufferline
-    {'akinsho/bufferline.nvim', version = "*"},
 
     -- Blank Indentation Line
     -- configuration of this plugin is in treesitter
@@ -148,12 +145,12 @@ require('lazy').setup({
     -- Git
     { 'lewis6991/gitsigns.nvim', opts = {} },
 
-    -- -- See and Pick colors in neovim
-    { 
-        "uga-rosa/ccc.nvim",
-        config = function()
-           require("ccc").setup {
-           }
-        end,
+    -- Colors
+    { "nvchad/volt", lazy = true },
+    { "nvchad/minty", lazy = true },
+
+}, {
+    install = {
+        colorscheme = { "nvchad" },
     },
-}, {})
+})

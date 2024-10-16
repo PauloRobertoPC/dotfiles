@@ -13,7 +13,8 @@ local check_backspace = function()
             :match("%s")
         == nil
 end
-cmp.setup({
+
+local options = {
     completion = {
         completeopt = "menu,menuone,noinsert",
         keyword_length = 1,
@@ -119,7 +120,10 @@ cmp.setup({
     experimental = {
         ghost_text = true,
     },
-})
+}
+
+options = vim.tbl_deep_extend("force", options, require "nvchad.cmp")
+cmp.setup(options)
 
 cmp.setup.cmdline("/", {
     mapping = cmp.mapping.preset.cmdline(),

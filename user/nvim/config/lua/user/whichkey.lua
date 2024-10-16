@@ -3,14 +3,30 @@ if not status_ok then
     return
 end
 
+-- navigation commands
+local harpoon = require("harpoon")
+harpoon:setup()
+harpoon:extend({
+    UI_CREATE = function(cx)
+        vim.keymap.set("n", "<C-v>", function()
+            harpoon.ui:select_menu_item({ vsplit = true })
+        end, { buffer = cx.bufnr })
 
+        vim.keymap.set("n", "<C-x>", function()
+            harpoon.ui:select_menu_item({ split = true })
+        end, { buffer = cx.bufnr })
+
+        vim.keymap.set("n", "<C-t>", function()
+            harpoon.ui:select_menu_item({ tabedit = true })
+        end, { buffer = cx.bufnr })
+    end,
+})
 
 which_key.add({
 
     { "<leader>c", group = "colors" },
-    { "<leader>cc", "<cmd>CccConvert<cr>", desc = "[c]onvert", mode = "n" },
-    { "<leader>cp", "<cmd>CccPick<cr>", desc = "[p]ick color", mode = "n" },
-    { "<leader>cs", "<cmd>CccHighlighterToggle<cr>", desc = "[s]how [c]olors", mode = "n" },
+    { "<leader>ch", "<cmd>lua require('minty.huefy').toggle()<CR>", desc = "toggle [h]uefy", mode = "n"  },
+    { "<leader>cs", "<cmd>lua require('minty.shades').toggle()<CR>", desc = "toggle [s]hades", mode = "n"  },
 
     { "<leader>d", group = "debug" },
     { "<leader>da", "<cmd>lua require'dap'.continue()<CR>", desc = "Continue", mode = "n"  },
@@ -31,6 +47,7 @@ which_key.add({
     { "<leader>fr", "<cmd>Telescope oldfiles<cr>", desc = "open [r]ecent File", mode = "n" },
     { "<leader>fR", "<cmd>Telescope registers<cr>", desc = "[R]egisters", mode = "n" },
     { "<leader>ft", "<cmd>Telescope live_grep theme=ivy<cr>", desc = "[t]ext", mode = "n" },
+    { "<leader>fT", "<cmd>lua require('nvchad.themes').open()<cr>", desc = "[T]heme", mode = "n" },
 
     { "<leader>g", group = "git" },
     { "<leader>gb", "<cmd>lua require 'gitsigns'.prev_hunk()<cr>", desc = "previous(b) junk", mode = "n" },
@@ -62,8 +79,20 @@ which_key.add({
     { "<leader>lt", "<cmd>lua vim.lsp.buf.type_definition()<CR>", desc = "go to [t]ype definition", mode = "n" },
     { "<leader>lw", "<cmd>lua vim.diagnostic.goto_next()<CR>", desc = "next(w) diagnostic", mode = "n" },
 
+    { "<A>", group = "Navigation" },
+    { "<A-a>", function() harpoon:list():add() end, desc = "[a]dd file", mode = "n" },
+    { "<A-s>", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end, desc = "[s]how file", mode = "n" },
+    { "<A-1>", function() harpoon:list():select(1) end, desc = "goto 1", mode = "n" },
+    { "<A-2>", function() harpoon:list():select(2) end, desc = "goto 2", mode = "n" },
+    { "<A-3>", function() harpoon:list():select(3) end, desc = "goto 3", mode = "n" },
+    { "<A-4>", function() harpoon:list():select(4) end, desc = "goto 4", mode = "n" },
+    { "<A-5>", function() harpoon:list():select(5) end, desc = "goto 5", mode = "n" },
+    { "<A-6>", function() harpoon:list():select(6) end, desc = "goto 6", mode = "n" },
+    { "<A-7>", function() harpoon:list():select(7) end, desc = "goto 7", mode = "n" },
+    { "<A-8>", function() harpoon:list():select(8) end, desc = "goto 8", mode = "n" },
+    { "<A-9>", function() harpoon:list():select(9) end, desc = "goto 9", mode = "n" },
+
     { "<leader>o", group = "open" },
-    { "<leader>ob", "<cmd>ObsidianOpen<cr>", desc = "o[b]sidian", mode = "n" },
     { "<leader>od", "<cmd>Telescope diagnostics<cr>", desc = "[d]iagnostics", mode = "n" },
     { "<leader>oe", function() if not MiniFiles.close() then MiniFiles.open() end end, desc = "[e]xplorer tree", mode = "n"  },
     { "<leader>ol", "<cmd>VimtexCompile<cr>", desc = "[l]atex", mode = "n"  },
