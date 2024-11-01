@@ -28,10 +28,12 @@
             appimage-run
             cachix
             devenv
+            localsend
             rnote
             texliveFull
             ticktick
             zathura
+            zotero
         ]
     )
     ++

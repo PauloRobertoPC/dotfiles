@@ -4,11 +4,12 @@ let
 in
 {
 	home.packages = with pkgs; [
+        atuin
+        bat
+        btop
+        lsd
         zsh
         zsh-nix-shell
-        lsd
-        btop
-        bat
 	];
 
 	home.file.".zshrc".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/user/zsh/.zshrc";

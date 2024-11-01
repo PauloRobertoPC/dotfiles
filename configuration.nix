@@ -165,18 +165,21 @@
             docker
             firefox
             flameshot
+            fastfetch
             fzf
             git
             gh
             gnugrep
             google-chrome
             kitty
+            lazygit
+            lazydocker
             megasync
             mpd
-            neofetch
             obsidian
             peek
             pipewire
+            pwvucontrol
             ripgrep
             rtkit
             telegram-desktop
@@ -188,6 +191,7 @@
             whatsapp-for-linux
             wireplumber
             xsel
+            zellij
             zip
             zsh
         ]
