@@ -9,10 +9,6 @@ keymap("", "<Space>", "<Nop>", opts)
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
--- Insert --
---keymap("i", "jk", "<ESC>", opts)                -- Enter in Normal Mode Faster
---keymap("i", "kj", "<ESC>", opts)                -- Enter in Normal Mode Faster
-
 -- Normal --
 keymap("n", "<leader><C-V>", "\"+p", opts)      -- Copy For Machine Clipboard
 

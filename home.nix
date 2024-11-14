@@ -33,12 +33,13 @@
             texliveFull
             ticktick
             zathura
-            zotero
         ]
     )
     ++
     (
         with pkgs-unstable; [
+            zotero
+            uv
         ]
     );
 

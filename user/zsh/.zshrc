@@ -8,6 +8,9 @@ fi
 # aliases in another file to declutter the zshrc
 source ~/.zsh_aliases
 export NIXPKGS_ALLOW_UNFREE=1
+export EDITOR="nvim"
+export VISUAL="nvim"
+
 
 # z plugin stuffs
 if [[ ! -d ~/.zplug ]]; then

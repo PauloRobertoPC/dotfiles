@@ -22,8 +22,15 @@ harpoon:extend({
     end,
 })
 
-which_key.add({
+vim.keymap.set({'n', 't'}, '<C-h>', '<CMD>NavigatorLeft<CR>')
+vim.keymap.set({'n', 't'}, '<C-l>', '<CMD>NavigatorRight<CR>')
+vim.keymap.set({'n', 't'}, '<C-k>', '<CMD>NavigatorUp<CR>')
+vim.keymap.set({'n', 't'}, '<C-j>', '<CMD>NavigatorDown<CR>')
+vim.keymap.set({'n', 't'}, '<C-p>', '<CMD>NavigatorPrevious<CR>')
 
+
+which_key.add({
+    
     { "<leader>c", group = "colors" },
     { "<leader>ch", "<cmd>lua require('minty.huefy').toggle()<CR>", desc = "toggle [h]uefy", mode = "n"  },
     { "<leader>cs", "<cmd>lua require('minty.shades').toggle()<CR>", desc = "toggle [s]hades", mode = "n"  },

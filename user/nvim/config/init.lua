@@ -9,6 +9,9 @@ for _, v in ipairs(vim.fn.readdir(vim.g.base46_cache)) do
     dofile(vim.g.base46_cache .. v)
 end
 
+
+-- require("zellij-nav").setup()
+
 require "user.keymaps"
 require "user.whichkey"
 require "user.treesitter"

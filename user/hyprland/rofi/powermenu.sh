@@ -5,7 +5,7 @@ choosen=$(printf "$chooses" | rofi -dmenu -theme ~/.config/hypr/rofi/style.rasi
 
 case "$choosen" in
     "Lock") hyprlock;;
-    "Logout") hyprctl dispatch quit;;
+    "Logout") hyprctl dispatch exit;;
     "Reboot") reboot;;
     "Power Off") poweroff;;
     *) exit 1;;

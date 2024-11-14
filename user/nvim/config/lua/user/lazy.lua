@@ -139,8 +139,20 @@ require('lazy').setup({
         end,
         ft = { "markdown" },
     },
-    -- Vim + Tmux
-    { 'christoomey/vim-tmux-navigator' },
+
+    -- Nvim + Tmux/Zellij/Wezterm
+    {
+        'dynamotn/Navigator.nvim',
+        config = function()
+            require('Navigator').setup()
+        end
+    },
+    {
+        "hiasr/vim-zellij-navigator.nvim",
+        config = function()
+            require('vim-zellij-navigator').setup()
+        end
+    },
 
     -- Git
     { 'lewis6991/gitsigns.nvim', opts = {} },
